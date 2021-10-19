@@ -14,15 +14,18 @@ require'nvim-treesitter.configs'.setup {
     disable = {},
   },
   ensure_installed = {
-    "tsx",
-    "toml",
- --  "fish",
-    "ruby",
-    "json",
-    "yaml",
- --   "swift",
+    "bash",
+    "css",
+    "go",
+    "gomod",
     "html",
-    "scss"
+    "javascript",
+    "json",
+    "lua",
+    "ruby",
+    "scss",
+    "toml",
+    "yaml"
   },
 }
 
