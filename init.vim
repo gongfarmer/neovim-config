@@ -1,11 +1,3 @@
-" 2021-10-13 To set up nvim on a new machine:
-" 1. Copy over ~/.config/nvim/
-" 2. Copy over ~/.local/share/nvim/
-"   This second dir contains all the plugins, including the plugin manager
-"   plugin "plugged".
-"   I don't know how to get plugged to download fresh copies of all the
-"   plugins without doing this one weird step first.
-
 " Fundamentals "{{{
 " ---------------------------------------------------------------------
 
