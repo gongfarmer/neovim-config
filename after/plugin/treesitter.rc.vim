@@ -17,7 +17,7 @@ require'nvim-treesitter.configs'.setup {
     "tsx",
     "toml",
  --  "fish",
-    "php",
+    "ruby",
     "json",
     "yaml",
  --   "swift",
