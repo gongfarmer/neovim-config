@@ -87,8 +87,20 @@ nvim_lsp.flow.setup {
 
 -- ruby language support
 nvim_lsp.solargraph.setup{
+  filetypes = {"ruby", "rakefile"},
+  root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
   on_attach = on_attach,
+      settings = {
+        solargraph = {
+            autoformat = true,
+            completion = true,
+            diagnostic = true,
+            folding = true,
+            references = true,
+            rename = true,
+            symbols = true
+        }
+    }
 }
-
 
 EOF

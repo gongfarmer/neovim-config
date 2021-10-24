@@ -5,5 +5,7 @@ if !exists('*fugitive#statusline')
   set statusline+=%{fugitive#statusline()}
 endif
 
-cnoreabbrev g Git
+" conflicts with the g command
+cnoreabbrev G Git
+
 cnoreabbrev gopen GBrowse

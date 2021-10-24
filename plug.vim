@@ -7,19 +7,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'cohama/lexima.vim'
 
-" Plug 'tomasr/molokai'
-" Plug 'morhetz/gruvbox'
-" Plug 'nightsense/snow'
-" Plug 'mcchrish/nnn.vim'
-" Plug 'ngmy/vim-rubocop'
-" Plug 'kien/ctrlp.vim'
-" Plug 'vim-ruby/vim-ruby'
-" Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-abolish'
-" Plug 'itspriddle/vim-shellcheck'
-" Plug 'vim-airline/vim-airline'
-" Plug 'embark-theme/vim', { 'as': 'embark' }
-
 if has("nvim")
   Plug 'overcache/NeoSolarized'
   Plug 'hoob3rt/lualine.nvim'
@@ -29,7 +16,9 @@ if has("nvim")
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim'
   Plug 'folke/lsp-colors.nvim'
-  Plug 'nvim-lua/completion-nvim'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-vsnip'
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'nvim-lua/popup.nvim'
@@ -38,5 +27,4 @@ if has("nvim")
   Plug 'nvim-telescope/telescope-fzy-native.nvim'
 endif
 
-Plug 'groenewege/vim-less', { 'for': 'less' }
 call plug#end()

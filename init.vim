@@ -32,7 +32,8 @@ endif
 " Suppress appending <PasteStart> and <PasteEnd> when pasting
 set t_BE=
 
-set nosc noru nosm
+set noshowcmd noruler noshowmatch
+
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 "set showmatch
@@ -102,7 +103,7 @@ au BufNewFile,BufRead *.md set filetype=markdown
 " Flow
 au BufNewFile,BufRead *.flow set filetype=javascript
 
-set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.php,.py,.md
+set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.php,.py,.md,.rb,.go
 
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
@@ -142,11 +143,6 @@ if exists("&termguicolors") && exists("&winblend")
 endif
 
 "}}}
-
-" Solarvim Configuration "{{{
-" ---------------------------------------------------------------------
-  runtime ./solargraph_config.vim
-" }}}
 
 " Extras "{{{
 " ---------------------------------------------------------------------
