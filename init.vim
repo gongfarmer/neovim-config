@@ -1,3 +1,8 @@
+" Created 2021. Based on this neovim 0.5 lsp setup:
+"   https://github.com/craftzdog/dotfiles-public
+"   https://blog.inkdrop.app/how-to-set-up-neovim-0-5-modern-plugins-lsp-treesitter-etc-542c3d9c9887
+"   https://www.youtube.com/watch?v=FW2X1CXrU1w
+
 " Fundamentals "{{{
 " ---------------------------------------------------------------------
 

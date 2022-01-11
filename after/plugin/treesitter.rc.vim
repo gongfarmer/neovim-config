@@ -6,8 +6,8 @@ endif
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
-    enable = true,
-    disable = {},
+    enable = true, -- false will disable the whole extension
+    disable = {}, -- list of languages that will be disabled
   },
   indent = {
     enable = false,
@@ -25,10 +25,10 @@ require'nvim-treesitter.configs'.setup {
     "ruby",
     "scss",
     "toml",
-    "yaml"
+    "yaml",
   },
 }
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
--- parser_config.tsx.used_by = { "javascript", "typescript.tsx" }
+parser_config.tsx.used_by = { "javascript", "typescript.tsx" }
 EOF
