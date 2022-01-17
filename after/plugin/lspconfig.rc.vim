@@ -103,4 +103,9 @@ nvim_lsp.solargraph.setup{
     }
 }
 
+-- https://github.com/bash-lsp/bash-language-server#neovim
+-- Install the language server first with: npm i -g bash-language-server
+-- FIXME: config is ok but the language server itself fails to run due to the debian packages providing 'node' benig out of date.
+nvim_lsp.bashls.setup{}
+
 EOF

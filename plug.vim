@@ -8,6 +8,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'cohama/lexima.vim'
 
 if has("nvim")
+  Plug 'airblade/vim-gitgutter'
   Plug 'overcache/NeoSolarized'
   Plug 'hoob3rt/lualine.nvim'
   Plug 'kristijanhusak/defx-git'

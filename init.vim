@@ -3,6 +3,19 @@
 "   https://blog.inkdrop.app/how-to-set-up-neovim-0-5-modern-plugins-lsp-treesitter-etc-542c3d9c9887
 "   https://www.youtube.com/watch?v=FW2X1CXrU1w
 
+" Font Configuration notes "{{{
+"   * you need a monospace font for your terminal that has a patched nerd-font equivalent
+"   * without this, the special chars in the vim modeline, file browser and code hints look weird and have spacing issues.
+"   * choose one or more fonts on this list: https://github.com/ryanoasis/nerd-fonts#patched-fonts
+"   * install each font's debian package using apt (eg. apt-get install fonts-inconsolata)
+"   * install the corresponding nerd fonts. To do that:
+"     - Download the latest release for your font(s): https://github.com/ryanoasis/nerd-fonts/releases
+"     - Unpack each zip file placing the contents in one of the following dirs, depending whether you want it system-wide:
+"       * /usr/local/share/fonts (as root)
+"       * ~/.local/share/fonts
+"   * set your terminal preferences to use the new font
+"   }}}
+
 " Fundamentals "{{{
 " ---------------------------------------------------------------------
 
