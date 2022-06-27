@@ -127,6 +127,9 @@ autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
+" Required by storagegrid .rubocop.yml coding standard
+" indent 2 spaces on multiline method call
+let g:ruby_indent_hanging_elements = 0
 "}}}
 
 " Imports "{{{

@@ -1,0 +1,16 @@
+fi         [defx]      Open filemanager
+Space-e    [lsp]       Show current line's diagnostic messages in a floating window
+;f         [telescope] Telescope find_files
+;r         [telescope] Telescope live_grep
+\\         [telescope] Telescope buffers
+;;         [telescope] Telescope help_tags
+]q         []          quickfix next
+[q         []          quickfix previous
+K          [lspsaga]   show lsp hover text for whatever is under the cursor
+:Git blame [fugitive]  show blame for current file, with convenient access to each line's most recent commit
+:LspStop   [lsp]       stop showing diagnostics, useful for reading old legacy code
+\t         [vim-test]  run the test nearest to the cursor, or previous test
+\T         [vim-test]  run tests for current file, or previous file if not a test file
+\a         [vim-test]  run test suite for the current file
+\l         [vim-test]  run the last test
+\g         [vim-test]  open the last run test in the current buffer
