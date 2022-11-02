@@ -301,7 +301,28 @@ use { 'mbbill/undotree', cmd = 'UndotreeToggle'}
 -- file browser
 use {
 	"luukvbaal/nnn.nvim",
-	config = function() require("nnn").setup() end
+		config = function()
+			local nnn = require("nnn")
+			nnn.setup({
+				explorer = { cmd = "nnn -o", session = "shared", side = "topleft", tabs = true },
+				picker = { cmd = "tmux new-session nnn -Pp", style = { border = "rounded" } },
+				replace_netrw = "explorer",
+				windownav = { left = "<C-h>", right = "<C-l>" },
+				auto_open = { setup = "explorer", tabpage = "explorer", empty = true },
+				auto_close = true,
+				offset = true,
+				quitcd = false, -- prevent visiting a dir in the picker from moving nvim process's cwd
+				mappings = {
+					{ "<C-t>", nnn.builtin.open_in_tab },      -- open file(s) in tab
+					{ "<C-s>", nnn.builtin.open_in_split },    -- open file(s) in split
+					{ "<C-v>", nnn.builtin.open_in_vsplit },   -- open file(s) in vertical split
+					{ "<C-y>", nnn.builtin.copy_to_clipboard },-- copy file(s) to clipboard
+					{ "<C-w>", nnn.builtin.cd_to_path },       -- cd to file directory
+					{ "<C-p>", nnn.builtin.open_in_preview },  -- open file in preview split keeping nnn focused
+					{ "<C-e>", nnn.builtin.populate_cmdline }, -- populate cmdline (:) with file(s)
+				},
+			})
+		end,
 }
 
 use {'dstein64/vim-startuptime', opt = true}

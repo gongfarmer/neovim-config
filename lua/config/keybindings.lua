@@ -18,7 +18,8 @@ vim.cmd('iab YDTT <C-R>=strftime("%F %H:%M:%S")<CR>')
 
 -- nnn
 --  The %:p:h argument makes it open the dirname of the file in the active buffer
-vim.cmd('nnoremap fi <cmd>NnnPicker %:p:h<CR>')
+vim.cmd('nnoremap sf <cmd>NnnPicker %:p:h<CR>') -- 'see files'
+vim.cmd('nnoremap fi <cmd>NnnExplorer %:p:h<CR>') -- same as above
 vim.cmd('tnoremap <C-A-p> <cmd>NnnPicker<CR>')
 vim.cmd('tnoremap <C-A-n> <cmd>NnnExplorer<CR>')
 vim.cmd('nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>')
