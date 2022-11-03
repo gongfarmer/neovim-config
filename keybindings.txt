@@ -19,7 +19,7 @@ My old config only had bindings for live grep, find files, and search help so th
 <space>of    live grep
 <space>oo    find
 <space>ob    buffers
-<space>oq    find in your vim configuration files
+<space>oq    list your vim configuration files
 <space>ow    telescope workspaces
 <space>oh    telescope help_tags
 <space>oz    telescope zoxide list

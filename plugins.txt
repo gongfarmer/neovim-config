@@ -27,7 +27,7 @@ R copilot.vim - neovim plugin for github copilot
   mason-lspconfig.nvim - helps use mason with lsp
   mason.nvim - portable package manager for nvim. Installs other software besides just nvim plugins.
   neo-tree.nvim - plugin for browsing filesystem
-  neogit - text based user interfce to git
+  neogit - text based user interface to git
   neotest - framework for interacting with tests
   neotest-rspec - rspec adapter for neotest
   nui.nvim - ui component library for neovim
@@ -35,7 +35,7 @@ R copilot.vim - neovim plugin for github copilot
   nvim-autopairs - puts the terminating symbol after an opening quote, bracket etc.
   nvim-bqf - better quickfix window
 * nvim-cmp - completion plugin
-  nvim-colorizer.lua - fast text color highlighter
+  nvim-colorizer.lua - colorizes background of color codes (eg. #558817)
   nvim-dap - debug adapter protocol, for attaching debuggers to nvim
   nvim-dap-ui - UI for nvim-dap
   nvim-lspconfig - quickstart configs for nvim-lsp
@@ -71,7 +71,3 @@ R copilot.vim - neovim plugin for github copilot
   vim-unimpaired - [tpope] useful key mappings for next/previous
   vim-visual-multi - helps modify multiple lines at a time
   which-key.nvim - shows which commands can be reached from the keys typed so far  
-
-
-# TO ADD
-Plug 'overcache/NeoSolarized'

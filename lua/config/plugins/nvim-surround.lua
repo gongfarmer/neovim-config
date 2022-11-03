@@ -1,3 +1,4 @@
+print("Hello from lua/config/plugins/nvim-surround.lua")
 require('nvim-surround').setup({
     keymaps = { -- vim-surround style keymaps
         insert = "ys",

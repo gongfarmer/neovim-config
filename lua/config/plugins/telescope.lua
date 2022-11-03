@@ -27,7 +27,6 @@ require('telescope').load_extension('zoxide')
 
 -- These don't have any effect, why?
 -- I moved them to keybindings.lua, they work fine there
-echom("FRASER setting telescope keymaps")
 vim.cmd('nnoremap ;f <cmd>lua require("telescope.builtin").find_files()<cr>')
 vim.cmd('nnoremap ;b <cmd>lua require("telescope.builtin").buffers()<cr>')
 vim.cmd('nnoremap ;r <cmd>lua require("telescope.builtin").live_grep()<cr>')

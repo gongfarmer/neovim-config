@@ -100,7 +100,7 @@ use 'hrsh7th/cmp-buffer'
 use 'hrsh7th/cmp-path'
 use 'hrsh7th/cmp-cmdline'
 use 'saadparwaiz1/cmp_luasnip'
-use({'hrsh7th/nvim-cmp', config = 'require "config.plugins.nvim-cmp"'})
+use('hrsh7th/nvim-cmp')
 
 -- === TreeSitter ===
 use("nvim-treesitter/nvim-treesitter-textobjects")
@@ -337,15 +337,18 @@ Use { 'abecodes/tabout.nvim', after = {'nvim-cmp'}}
 -- use 'skywind3000/asyncrun.vim'
 -- use 'vim-test/vim-test'
 
- Use({
+-- Testing
+
+ use({
    'nvim-neotest/neotest',
    requires = {
      "nvim-lua/plenary.nvim",
      "nvim-treesitter/nvim-treesitter",
      'olimorris/neotest-rspec',
-     'antoinemadec/FixCursorHold.nvim',
+--     'antoinemadec/FixCursorHold.nvim',
    },
  })
+
 
 -- use { '~/projects/dig.nvim', config = ' dig = require"dig".debug' }
 

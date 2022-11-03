@@ -1,33 +1,25 @@
-echomsg("fraser wants to setup neotest-rspec")
+print("hello from after/plugin/neotest.lua")
+-- this writes its own log file ~/.local/state/nvim/neotest.log
+--
+-- remember to install treesitter ruby or none of this will work:
+--    :TSInstall ruby
 
--- require("neotest").setup({
---   icons = {
---     running = "•",
---   },
---   adapters = {
--- --    require('neotest-plenary'),
---     require('neotest-rspec')({
---       rspec_cmd = function()
---         return vim.tbl_flatten({"bundle", "exec", "rspec" })
---       end
---     }),
---   },
--- })
--- 
--- vim.cmd [[command! Neotest lua require('neotest').summary.open()]]
--- vim.cmd [[command! NeotestRun lua require('neotest').run.run()]]
+-- Neotest is tied to this command: 'bundle exec rspec TEST_FILE'
+-- You have to have a Gemfile that specifies how to get all needed gems for
+-- this to work.
+-- If the tests are all failed but have no output, step back and run that
+-- command on a single test to see if there is an environment problem.
 
+-- FIXME: needs some keyboard shorcuts
 
 -- neotest configuration copied from prdanelli
 local status_ok, neotest = pcall(require, "neotest")
 if not status_ok then return end
 
-echomsg("fraser setup neotest-rspec")
-
 neotest.setup({
   adapters = { require("neotest-rspec"), },
   diagnostic = {
-    enabled = false
+    enabled = true
   },
   discovery = {
     enabled = true
@@ -39,7 +31,7 @@ neotest.setup({
     options = {}
   },
   highlights = {
-    adapater_name = "NeotestAdapterName",
+    adapter_name = "NeotestAdapterName",
     border = "NeotestBorder",
     dir = "NeotestDir",
     expand_marker = "NeotestExpandMarker",
@@ -105,3 +97,7 @@ neotest.setup({
   }
 })
 
+
+vim.cmd [[command! Neotest lua require('neotest').summary.open()]]
+vim.cmd [[command! NeotestRun lua require('neotest').run.run()]]
+-- You can show the next failed test message with :LspSaga diagnostic_jump_next (currently mapped to ]e)

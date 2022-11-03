@@ -24,6 +24,11 @@ vim.opt.fileignorecase = true                             -- case is ignored whe
 vim.opt.mouse = 'a'                                    -- enable mouse
 vim.opt.autoread = false                               -- disable file change detection
 
+-- cursorline: subtly brighten the line that the cursor is on
+vim.opt.cursorline = true
+vim.cmd [[highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40]]
+vim.cmd [[highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=black]]
+
 -- Display extra whitespace
 vim.opt.list = true
 vim.opt.listchars = 'tab:»»,trail:·,nbsp:·'

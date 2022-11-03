@@ -5,12 +5,13 @@
 
 -- The order in which dirs/files are read is determined by the runtimepath (:se rtp)
 -- this is the way to put debug messages in your lua config
+vim.opt.incsearch = true
 print("hello from init.lua")
 
 require 'config.helpers'
 require "config.keybindings"
 require "config.settings"
-require "config.plugins"
+require "config.plugins" -- could eliminate this by moving plugin config files to after/plugin
 
 if os.getenv('INSTALL') then return end
 
