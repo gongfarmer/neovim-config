@@ -1,5 +1,13 @@
-require 'config.helpers'
+-- On startup:
+-- 1. init.lua is read
+-- 2. files in after/plugin/ are automatically read
+--    (files in after/ are not automatically read, but it is available to use for require)
 
+-- The order in which dirs/files are read is determined by the runtimepath (:se rtp)
+-- this is the way to put debug messages in your lua config
+print("hello from init.lua")
+
+require 'config.helpers'
 require "config.keybindings"
 require "config.settings"
 require "config.plugins"
@@ -11,9 +19,9 @@ require "config.dap"
 
 vim.cmd 'colorscheme onedark'
 
--- vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
 -- vim.keymap.set('n', '<space>f', require'scripts'.send_to_tmux)
 -- vim.keymap.set('n', '<leader>f', function() require'scripts'.send_to_tmux(true) end)
+vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
 vim.keymap.set('n', '<space>og', require'finders'.git)
 vim.keymap.set('n', '<space>oo', require'finders'.find)
 vim.keymap.set('n', '<space>ob', '<cmd> Telescope buffers<cr>')

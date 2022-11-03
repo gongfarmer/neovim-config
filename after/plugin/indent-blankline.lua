@@ -6,18 +6,31 @@
 -- vim.cmd [[highlight IndentSix guifg=#88C0D0 guibg=NONE gui=nocombine]]
 -- vim.cmd [[highlight IndentSeven guifg=#B48EAD guibg=NONE gui=nocombine]]
 
-vim.cmd [[highlight IndentOne guifg=#63363A guibg=NONE gui=nocombine]]
-vim.cmd [[highlight IndentTwo guifg=#5C443D guibg=NONE gui=nocombine]]
-vim.cmd [[highlight IndentThree guifg=#5C523D guibg=NONE gui=nocombine]]
-vim.cmd [[highlight IndentFour guifg=#4B5C3D guibg=NONE gui=nocombine]]
-vim.cmd [[highlight IndentFive guifg=#3D4B5C guibg=NONE gui=nocombine]]
-vim.cmd [[highlight IndentSix guifg=#3D555C guibg=NONE gui=nocombine]]
+-- vim.cmd [[highlight IndentOne guifg=#63363A guibg=NONE gui=nocombine]]
+-- vim.cmd [[highlight IndentTwo guifg=#5C443D guibg=NONE gui=nocombine]]
+-- vim.cmd [[highlight IndentThree guifg=#5C523D guibg=NONE gui=nocombine]]
+-- vim.cmd [[highlight IndentFour guifg=#4B5C3D guibg=NONE gui=nocombine]]
+-- vim.cmd [[highlight IndentFive guifg=#3D4B5C guibg=NONE gui=nocombine]]
+-- vim.cmd [[highlight IndentSix guifg=#3D555C guibg=NONE gui=nocombine]]
+-- vim.cmd [[highlight IndentSeven guifg=#5C3D56 guibg=NONE gui=nocombine]]
+
+vim.cmd [[highlight IndentOne guifg=#E06C75 gui=nocombine]]
+vim.cmd [[highlight IndentTwo guifg=#E5C07B gui=nocombine]]
+vim.cmd [[highlight IndentThree guifg=#98C379 gui=nocombine]]
+vim.cmd [[highlight IndentFour guifg=#56B6C2 gui=nocombine]]
+vim.cmd [[highlight IndentFive guifg=#61AFEF gui=nocombine]]
+vim.cmd [[highlight IndentSix guifg=#C678DD gui=nocombine]]
 vim.cmd [[highlight IndentSeven guifg=#5C3D56 guibg=NONE gui=nocombine]]
 
 -- vim.g.indent_blankline_char = "│"
 vim.g.indent_blankline_char_highlight_list = {
-  "IndentOne", "IndentTwo", "IndentThree", "IndentFour", "IndentFive",
-  "IndentSix", "IndentSeven"
+  "IndentOne",
+  "IndentTwo",
+  "IndentThree",
+  "IndentFour",
+  "IndentFive",
+  "IndentSix",
+  "IndentSeven"
 }
 vim.g.indent_blankline_show_first_indent_level = true
 vim.g.indent_blankline_filetype_exclude = {
