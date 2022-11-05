@@ -278,6 +278,11 @@ end}
 
 use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
 
+-- show json path at top of screen  when viewing json
+use { 'phelipetls/jsonpath.nvim' }
+use { 'fgheng/winbar.nvim', config = 'require"winbar".setup({})' }
+
+
 use {'thinca/vim-quickrun', cmd = 'QuickRun'}
 use 'github/copilot.vim'
 use { 'camspiers/snap', rocks = {'fzy'}, disable = true }
