@@ -1,4 +1,3 @@
-print("hello from after/plugin/neotest.lua")
 -- this writes its own log file ~/.local/state/nvim/neotest.log
 --
 -- remember to install treesitter ruby or none of this will work:
@@ -17,7 +16,17 @@ local status_ok, neotest = pcall(require, "neotest")
 if not status_ok then return end
 
 neotest.setup({
-  adapters = { require("neotest-rspec"), },
+  adapters = { require("neotest-rspec"), ({
+    -- set the comand that neotest uses to run rspec.
+    -- FIXME: use this to break the dependency on bundle and make it so I no longer need a Gemfile to run tests
+    rspec_cmd = function()
+      return vim.tbl_flatten({
+        "bundle",
+        "exec",
+        "rspec",
+      })
+    end
+  })},
   diagnostic = {
     enabled = true
   },

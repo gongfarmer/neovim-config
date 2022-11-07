@@ -27,6 +27,31 @@ vim.cmd('nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>')
 -- open my keybindings file
 vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/keybindings.txt<CR>')
 
+
+-- Make C-a, C-e, C-k work (emacs-style) while entering cmds at the :
+vim.cmd('cnoremap <C-a> <Home>')
+vim.cmd('cnoremap <C-e> <End>')
+vim.cmd('cnoremap <C-k> <C-\\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>')
+
+-- F1 : alternate 'esc'
+vim.cmd('map <F1> <ESC>')
+vim.cmd('imap <F1> <ESC>')
+vim.cmd('cmap <F1> <ESC>')
+
+vim.cmd('iab alos      also')
+vim.cmd('iab aslo      also')
+vim.cmd('iab bianry    binary')
+vim.cmd('iab bianries  binaries')
+vim.cmd('iab charcter  character')
+vim.cmd('iab charcters characters')
+vim.cmd('iab exmaple   example')
+vim.cmd('iab exmaples  examples')
+vim.cmd('iab shoudl    should')
+vim.cmd('iab seperate  separate')
+vim.cmd('iab teh       the')
+vim.cmd('iab THe       The')
+vim.cmd('iab tpyo      typo')
+vim.cmd('iab THis      This')
 -- The rest of these come from rafcamlet, watch out!
 -- FIXME: decide if there are any gems in here worth keeping
 

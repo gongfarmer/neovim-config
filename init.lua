@@ -6,7 +6,9 @@
 -- The order in which dirs/files are read is determined by the runtimepath (:se rtp)
 -- this is the way to put debug messages in your lua config
 vim.opt.incsearch = true
-print("hello from init.lua")
+
+-- # This is how to print a message that will be logged in :messages
+-- print("hello from init.lua")
 
 require 'config.helpers'
 require "config.keybindings"

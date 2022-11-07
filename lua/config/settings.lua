@@ -12,7 +12,6 @@ vim.opt.backup = false                                   -- prevent backup
 vim.opt.swapfile = false                                 -- prevent swapfile
 vim.opt.writebackup = false                              -- prevent backup
 vim.opt.scrolljump = 5                               -- Lines to scroll when cursor leaves screen
-vim.opt.scrolloff = 3                                -- Minimum lines to keep above and below cursor
 -- set backupdir=~/.backup,./.backup,/tmp            -- set backup directory
 vim.opt.splitbelow = true                                 -- set panel split position
 vim.opt.splitright = true
