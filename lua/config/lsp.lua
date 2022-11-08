@@ -6,6 +6,9 @@ mason_lspconfig.setup()
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+-- configure plugin which finds code context to put in the winbar
+local navic = require("nvim-navic")
+
 local servers = mason_lspconfig.get_installed_servers()
 vim.list_extend(servers, {'solargraph'})
 
@@ -20,6 +23,10 @@ Settings.sumneko_lua = {
 }
 
 local function on_attach(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
+
   local lsp_functions = require('config.lsp_functions')
   lsp_functions.keybindings(bufnr)
   lsp_functions.highlights(client)
@@ -34,6 +41,7 @@ for i, server in ipairs(servers) do
     settings = settings,
   }
 end
+local navic = require("nvim-navic")
 
 DiagnosticConfig = {
   virtual_text = false
