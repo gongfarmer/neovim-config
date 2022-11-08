@@ -54,6 +54,8 @@ L            show line diagnostics (ie. the rubocop err message for this line)
 ]e           jump to the next line with a diagnostic and show it
 [e           jump to the next line with a diagnostic and show it
 
+,a           aerial: show the code outline window
+
 === some random useful commands
 :TsPlaygroundToggle show the treesitter parse tree of your code!
 :NeoTest show neotest summary. I don't know how to run tests though.
