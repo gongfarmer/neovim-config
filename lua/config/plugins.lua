@@ -405,7 +405,16 @@ use 'ojroques/vim-oscyank'
 Use {'kylechui/nvim-surround'}
 Use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
 use { 'kkoomen/vim-doge', run = function() vim.fn['doge#install']() end  }
-use 'TimUntersberger/neogit'
 use {'stevearc/dressing.nvim', config = "require'dressing'.setup()" }
+
+
+-- neogit - a git interface, similar to vim-fugitive but in lua and intends to clone magit
+use {
+  'TimUntersberger/neogit',
+  requires = {
+    'nvim-lua/plenary.nvim',
+    'sindrets/diffview.nvim'
+  }
+}
 
 end)
