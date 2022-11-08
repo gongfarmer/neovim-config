@@ -27,6 +27,8 @@ vim.opt.autoread = false                               -- disable file change de
 vim.opt.cursorline = true
 vim.cmd [[highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40]]
 vim.cmd [[highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=black]]
+vim.cmd [[highlight CursorLineNr guifg=#e5c07b]] -- highlight the line number of the active line
+
 
 -- Display extra whitespace
 vim.opt.list = true

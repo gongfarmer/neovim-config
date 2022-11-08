@@ -106,150 +106,150 @@ return require("packer").startup(function()
   use "glepnir/lspsaga.nvim"
   use "jose-elias-alvarez/null-ls.nvim"
 
--- == complete ==
+  -- == complete ==
 
-use 'hrsh7th/cmp-nvim-lsp'
-use 'hrsh7th/cmp-buffer'
-use 'hrsh7th/cmp-path'
-use 'hrsh7th/cmp-cmdline'
-use 'saadparwaiz1/cmp_luasnip'
-use('hrsh7th/nvim-cmp')
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'saadparwaiz1/cmp_luasnip'
+  use('hrsh7th/nvim-cmp')
 
--- === TreeSitter ===
-use("nvim-treesitter/nvim-treesitter-textobjects")
-use("nvim-treesitter/nvim-treesitter-refactor")
-use("nvim-treesitter/playground")
+  -- === TreeSitter ===
+  use("nvim-treesitter/nvim-treesitter-textobjects")
+  use("nvim-treesitter/nvim-treesitter-refactor")
+  use("nvim-treesitter/playground")
 
-Use({ "nvim-treesitter/nvim-treesitter"})
+  Use({ "nvim-treesitter/nvim-treesitter"})
 
-Use({ "windwp/nvim-autopairs"})
+  Use({ "windwp/nvim-autopairs"})
 
-use({
-  "numToStr/Navigator.nvim",
-  config = function()
-    require("Navigator").setup()
-    local map = vim.api.nvim_set_keymap
-    local opts = { noremap = true, silent = true }
+  use({
+    "numToStr/Navigator.nvim",
+    config = function()
+      require("Navigator").setup()
+      local map = vim.api.nvim_set_keymap
+      local opts = { noremap = true, silent = true }
 
-    map("n", "<c-h>", "<CMD>lua require('Navigator').left()<CR>", opts)
-    map("n", "<c-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
-    map("n", "<c-k>", "<CMD>lua require('Navigator').up()<CR>", opts)
-    map("n", "<c-l>", "<CMD>lua require('Navigator').right()<CR>", opts)
-  end,
-})
+      map("n", "<c-h>", "<CMD>lua require('Navigator').left()<CR>", opts)
+      map("n", "<c-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
+      map("n", "<c-k>", "<CMD>lua require('Navigator').up()<CR>", opts)
+      map("n", "<c-l>", "<CMD>lua require('Navigator').right()<CR>", opts)
+    end,
+  })
 
-use({
-  "mg979/vim-visual-multi",
-  config = function()
-    vim.cmd([[
-    let g:VM_Mono_hl   = 'Visual'
-    let g:VM_Extend_hl = 'WildMenu'
-    let g:VM_Cursor_hl = 'Visual'
-    let g:VM_Insert_hl = 'IncSearch'
+  use({
+    "mg979/vim-visual-multi",
+    config = function()
+      vim.cmd([[
+      let g:VM_Mono_hl   = 'Visual'
+      let g:VM_Extend_hl = 'WildMenu'
+      let g:VM_Cursor_hl = 'Visual'
+      let g:VM_Insert_hl = 'IncSearch'
 
-    let g:VM_highlight_matches = 'red'
-    let g:VM_leader = '<space>'
-    let g:VM_maps = {}
-    let g:VM_maps['Find Under']         = '<C-d>'
-    let g:VM_maps['Find Subword Under'] = '<C-d>'
+      let g:VM_highlight_matches = 'red'
+      let g:VM_leader = '<space>'
+      let g:VM_maps = {}
+      let g:VM_maps['Find Under']         = '<C-d>'
+      let g:VM_maps['Find Subword Under'] = '<C-d>'
 
-    let g:VM_maps['Add Cursor Down']             = '<C-U>'
-    let g:VM_maps['Visual Cursors']              = '<space>'
-    let g:VM_maps['Switch Mode']                 = 'v'
-    let g:VM_maps['Visual Regex']                = '/'
+      let g:VM_maps['Add Cursor Down']             = '<C-U>'
+      let g:VM_maps['Visual Cursors']              = '<space>'
+      let g:VM_maps['Switch Mode']                 = 'v'
+      let g:VM_maps['Visual Regex']                = '/'
 
-    " autocmd User visual_multi_start nnoremap <c-l> l
-    " autocmd User visual_multi_start nnoremap <c-h> h
-    " autocmd User visual_multi_exit nnoremap  <c-l> :TmuxNavigateRight<CR>
-    " autocmd User visual_multi_exit nnoremap  <c-h> :TmuxNavigateLeft<CR>
-    ]])
-  end,
-})
+      " autocmd User visual_multi_start nnoremap <c-l> l
+      " autocmd User visual_multi_start nnoremap <c-h> h
+      " autocmd User visual_multi_exit nnoremap  <c-l> :TmuxNavigateRight<CR>
+      " autocmd User visual_multi_exit nnoremap  <c-h> :TmuxNavigateLeft<CR>
+      ]])
+    end,
+  })
 
-use({
-  "Arkham/nvim-miniyank",
-  config = function()
-    vim.cmd([[
-    map p <Plug>(miniyank-autoput)
-    map P <Plug>(miniyank-autoPut)
-    map <silent><c-p> <Plug>(miniyank-cycle)
-    map <silent><c-n> <Plug>(miniyank-cycleback)
-    ]])
-  end,
-})
+  use({
+    "Arkham/nvim-miniyank",
+    config = function()
+      vim.cmd([[
+      map p <Plug>(miniyank-autoput)
+      map P <Plug>(miniyank-autoPut)
+      map <silent><c-p> <Plug>(miniyank-cycle)
+      map <silent><c-n> <Plug>(miniyank-cycleback)
+      ]])
+    end,
+  })
 
-use({
-  "AndrewRadev/splitjoin.vim",
-  config = function()
-    vim.g.splitjoin_ruby_curly_braces = 0
-    vim.g.splitjoin_ruby_curly_braces = 0
-    vim.g.splitjoin_ruby_hanging_args = 0
-    vim.g.splitjoin_html_attributes_bracket_on_new_line = 1
-  end,
-})
+  use({
+    "AndrewRadev/splitjoin.vim",
+    config = function()
+      vim.g.splitjoin_ruby_curly_braces = 0
+      vim.g.splitjoin_ruby_curly_braces = 0
+      vim.g.splitjoin_ruby_hanging_args = 0
+      vim.g.splitjoin_html_attributes_bracket_on_new_line = 1
+    end,
+  })
 
-Use "lewis6991/gitsigns.nvim"
+  Use "lewis6991/gitsigns.nvim"
 
-use 'nvim-telescope/telescope-fzy-native.nvim'
-use {'jvgrootveld/telescope-zoxide'}
+  use 'nvim-telescope/telescope-fzy-native.nvim'
+  use {'jvgrootveld/telescope-zoxide'}
 
-Use({
-  "nvim-telescope/telescope.nvim",
-  -- commit = "ec6c13fc092fe8447df77e35013df907a6f3761e",
-  requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } }
-})
+  Use({
+    "nvim-telescope/telescope.nvim",
+    -- commit = "ec6c13fc092fe8447df77e35013df907a6f3761e",
+    requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } }
+  })
 
 
-Use({"lukas-reineke/indent-blankline.nvim", after = colorscheme})
-use({"L3MON4D3/LuaSnip", config = "require 'config.plugins.luasnip'"})
+  Use({"lukas-reineke/indent-blankline.nvim", after = colorscheme})
+  use({"L3MON4D3/LuaSnip", config = "require 'config.plugins.luasnip'"})
 
-use("kevinhwang91/nvim-bqf")
-use({ "junegunn/fzf", run = ":call fzf#install()", cmd = 'FZF' })
-use({ "norcalli/nvim-colorizer.lua", config = 'require"colorizer".setup()' })
-use{"jbyuki/one-small-step-for-vimkind", opt = true}
+  use("kevinhwang91/nvim-bqf")
+  use({ "junegunn/fzf", run = ":call fzf#install()", cmd = 'FZF' })
+  use({ "norcalli/nvim-colorizer.lua", config = 'require"colorizer".setup()' })
+  use{"jbyuki/one-small-step-for-vimkind", opt = true}
 
-use({
-  "mhartington/formatter.nvim",
-  cmd = "Format",
-  config = function()
-    require("formatter").setup({
-      logging = false,
-      log_level = vim.log.levels.INFO,
-      filetype = {
-        ruby = {
-          require('formatter.filetypes.ruby').rubocop
+  use({
+    "mhartington/formatter.nvim",
+    cmd = "Format",
+    config = function()
+      require("formatter").setup({
+        logging = false,
+        log_level = vim.log.levels.INFO,
+        filetype = {
+          ruby = {
+            require('formatter.filetypes.ruby').rubocop
+          },
+          sql = {
+            function()
+              local formaters = {
+                { exe = 'pg_format', args = { '-', '-W', '5' }, stdin = true },
+                { exe = "sqlformat", args = { "-", '-k', 'upper', '-a' }, stdin = true }
+              }
+              print('Select formatter (1) pg_format, (2) sqlformat:')
+              local nr = vim.fn.nr2char(vim.fn.getchar())
+              return formaters[tonumber(nr)]
+            end
+          },
+          lua = {
+            function()
+              return { exe = "stylua", args = { "-" }, stdin = true }
+            end,
+          },
         },
-        sql = {
-          function()
-            local formaters = {
-              { exe = 'pg_format', args = { '-', '-W', '5' }, stdin = true },
-              { exe = "sqlformat", args = { "-", '-k', 'upper', '-a' }, stdin = true }
-            }
-            print('Select formatter (1) pg_format, (2) sqlformat:')
-            local nr = vim.fn.nr2char(vim.fn.getchar())
-            return formaters[tonumber(nr)]
-          end
-        },
-        lua = {
-          function()
-            return { exe = "stylua", args = { "-" }, stdin = true }
-          end,
-        },
-      },
-    })
-  end,
-})
+      })
+    end,
+  })
 
--- === statusline ===
--- use {'glepnir/galaxyline.nvim', config = 'require"config.spaceline"'}
-use {'konapun/vacuumline.nvim',
+  -- === statusline ===
+  -- use {'glepnir/galaxyline.nvim', config = 'require"config.spaceline"'}
+  use {'konapun/vacuumline.nvim',
   requires = {
     'glepnir/galaxyline.nvim', branch = 'main',
     'kyazdani42/nvim-web-devicons', opt = true
   },
   -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
   config = function() require('vacuumline').setup({
---    theme = require('vacuumline.theme.one-dark')
+    --    theme = require('vacuumline.theme.one-dark')
     theme = require('vacuumline.theme.nord')
   }) end
 } 
@@ -302,7 +302,6 @@ end}
 
 use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
 
--- show json path at top of screen  when viewing json
 -- winbar
 -- * json: show json path at top of screen
 -- * code: show current method / class context
@@ -351,19 +350,18 @@ Use { 'abecodes/tabout.nvim', after = {'nvim-cmp'}}
 
 -- Testing
 
- use({
-   'nvim-neotest/neotest',
-   requires = {
-     "nvim-lua/plenary.nvim",
-     "nvim-treesitter/nvim-treesitter",
-     'olimorris/neotest-rspec',
-   },
- })
+use({
+  'nvim-neotest/neotest',
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    'olimorris/neotest-rspec',
+    --     'antoinemadec/FixCursorHold.nvim',
+  },
+})
 
 
--- noice: highly experimental plugin for replacing the UI used by lsp for messages, cmdline and popupmenu
-use 'MunifTanjim/nui.nvim'
-use 'rcarriga/nvim-notify'
+-- highly experimental plugin for replacing the UI used by lsp for messages, cmdline and popupmenu
 use({
   "folke/noice.nvim",
   config = function()
@@ -392,4 +390,5 @@ Use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
 use { 'kkoomen/vim-doge', run = function() vim.fn['doge#install']() end  }
 use 'TimUntersberger/neogit'
 use {'stevearc/dressing.nvim', config = "require'dressing'.setup()" }
+
 end)
