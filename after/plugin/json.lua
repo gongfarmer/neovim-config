@@ -1,5 +1,7 @@
 -- in after/ftplugin/json.lua
 
+-- needs this: LspInstall json
+
 -- show json path in the winbar
 if vim.fn.exists("+winbar") == 1 then
   vim.opt_local.winbar = "%{%v:lua.require'jsonpath'.get()%}"

@@ -73,7 +73,17 @@ return require("packer").startup(function()
 
   -- use({ "norcalli/nvim-terminal.lua", config = 'require"terminal".setup()' })
 
-  use({"folke/which-key.nvim", cmd = 'WhichKey'})
+  --  use({"folke/which-key.nvim", cmd = 'WhichKey'})
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
 
   -- === tpope ===
   use("tpope/vim-unimpaired")
@@ -293,8 +303,15 @@ end}
 use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
 
 -- show json path at top of screen  when viewing json
+-- winbar
+-- * json: show json path at top of screen
+-- * code: show current method / class context
 use { 'phelipetls/jsonpath.nvim' }
 use { 'fgheng/winbar.nvim', config = 'require"winbar".setup({})' }
+use {
+    "SmiteshP/nvim-navic",
+    requires = "neovim/nvim-lspconfig"
+}
 
 
 use {'thinca/vim-quickrun', cmd = 'QuickRun'}
@@ -319,30 +336,6 @@ use { 'mbbill/undotree', cmd = 'UndotreeToggle'}
 
 -- file browser
 use { "luukvbaal/nnn.nvim", config = 'require"nnn".setup()' }
--- use {
--- 	"luukvbaal/nnn.nvim",
--- 		config = function()
--- 			local nnn = require("nnn")
--- 			nnn.setup({
--- 				explorer = { cmd = "nnn -o", session = "shared", side = "topleft", tabs = true },
--- 				picker = { cmd = "tmux new-session nnn -Pp", style = { border = "rounded" } },
--- 				replace_netrw = "explorer",
--- 				windownav = { left = "<C-h>", right = "<C-l>" },
--- 				auto_open = { setup = "explorer", tabpage = "explorer", empty = true },
--- 				auto_close = true,
--- 				offset = true,
--- 				mappings = {
--- 					{ "<C-t>", nnn.builtin.open_in_tab },      -- open file(s) in tab
--- 					{ "<C-s>", nnn.builtin.open_in_split },    -- open file(s) in split
--- 					{ "<C-v>", nnn.builtin.open_in_vsplit },   -- open file(s) in vertical split
--- 					{ "<C-y>", nnn.builtin.copy_to_clipboard },-- copy file(s) to clipboard
--- 					{ "<C-w>", nnn.builtin.cd_to_path },       -- cd to file directory
--- 					{ "<C-p>", nnn.builtin.open_in_preview },  -- open file in preview split keeping nnn focused
--- 					{ "<C-e>", nnn.builtin.populate_cmdline }, -- populate cmdline (:) with file(s)
--- 				},
--- 			})
--- 		end,
--- }
 
 use {'dstein64/vim-startuptime', opt = true}
 use {'onsails/lspkind-nvim'}
@@ -364,10 +357,33 @@ Use { 'abecodes/tabout.nvim', after = {'nvim-cmp'}}
      "nvim-lua/plenary.nvim",
      "nvim-treesitter/nvim-treesitter",
      'olimorris/neotest-rspec',
---     'antoinemadec/FixCursorHold.nvim',
    },
  })
 
+
+-- noice: highly experimental plugin for replacing the UI used by lsp for messages, cmdline and popupmenu
+use 'MunifTanjim/nui.nvim'
+use 'rcarriga/nvim-notify'
+use({
+  "folke/noice.nvim",
+  config = function()
+    require("noice").setup()
+  end,
+  requires = {
+    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    "MunifTanjim/nui.nvim",
+    -- OPTIONAL:
+    --   `nvim-notify` is only needed, if you want to use the notification view.
+    --   If not available, we use `mini` as the fallback
+    "rcarriga/nvim-notify",
+    }
+})
+
+-- Allow nvim to copy to clipboard over an ssh session.
+-- Requirements:
+--   configure terminal to support term instruction osc52 (google "iterm2 osc52)
+--   possibly need to enable X11 forwarding on your ssh connection?  Unsure
+use 'ojroques/vim-oscyank'
 
 -- use { '~/projects/dig.nvim', config = ' dig = require"dig".debug' }
 
