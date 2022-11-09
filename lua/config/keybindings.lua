@@ -12,9 +12,8 @@ vim.cmd('nnoremap ;; <cmd>NnnExplorer %:p:h<cr>')
 -- end
 -- vim.cmd('autocmd FileType defx call vim.fn.defx_my_settings()')
 
--- Abbreviations
-vim.cmd('iab YDT <C-R>=strftime("%Y-%m-%d")<CR>')
-vim.cmd('iab YDTT <C-R>=strftime("%F %H:%M:%S")<CR>')
+-- start/stop showing those colored indentation guide lines
+vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
 
 -- nnn
 --  The %:p:h argument makes it open the dirname of the file in the active buffer
@@ -37,6 +36,10 @@ vim.cmd('cnoremap <C-k> <C-\\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>')
 vim.cmd('map <F1> <ESC>')
 vim.cmd('imap <F1> <ESC>')
 vim.cmd('cmap <F1> <ESC>')
+
+-- Abbreviations
+vim.cmd('iab YDT <C-R>=strftime("%Y-%m-%d")<CR>')
+vim.cmd('iab YDTT <C-R>=strftime("%F %H:%M:%S")<CR>')
 
 vim.cmd('iab alos      also')
 vim.cmd('iab aslo      also')
