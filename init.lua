@@ -46,6 +46,10 @@ vim.keymap.set('n', '<space>o<c-o>', "<cmd>Telescope resume<cr>")
 
 vim.cmd([[nmap <leader>t <Plug>PlenaryTestFile]])
 
+vim.cmd 'hi LspReferenceText gui=italic guibg=#393e46'
+vim.cmd 'hi LspReferenceRead gui=italic guibg=#393e46'
+vim.cmd 'hi LspReferenceWrite gui=italic guibg=#393e46'
+
 function underscore(self)
   return self:gsub("([A-Z]+)([A-Z][a-z])", "%1_%2"):
               gsub("([a-z%d])([A-Z])", "%1_%2"):
@@ -61,7 +65,22 @@ function capitalize(self)
   return self:lower():gsub("^%l", string.upper)
 end
 
+-- return true if file exists and is readable
+function file_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
+end
 
-vim.cmd 'hi LspReferenceText gui=italic guibg=#393e46'
-vim.cmd 'hi LspReferenceRead gui=italic guibg=#393e46'
-vim.cmd 'hi LspReferenceWrite gui=italic guibg=#393e46'
+-- return the path to the dir containing this file (NOT the current working dir)
+function script_path()
+   local str = debug.getinfo(2, "S").source:sub(2)
+   return str:match("(.*/)")
+end
+
+-- Load local customizations last from local.lua, if it exists.
+-- This file is not checked into git.
+-- It contains environment-specific customizations, such as different colorchemes for different sites.
+path = script_path() .. 'lua/config/local.lua'
+if file_exists(path) then
+  require 'config.local'
+end
