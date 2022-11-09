@@ -1,0 +1,44 @@
+# 2022-06-28
+
+# Font setup on MacOs for iterm2 3.5
+Must install the nerd-font version of your desired font so that those little icons will be avialable for use by neovim.
+Neovim uses fonts in its status line and also in the defx file manager to show file types (eg. little red ruby next to ruby files.)
+
+It may also be necessary to install the powerline version of the font.
+Powerline is a family of vim / neovim status line plugins, which seems to have its own specially patched fonts.
+Both are available in brew so I installed both.
+
+  $ brew search inconsolata
+  font-inconsolata-for-powerline
+  font-inconsolata-go-nerd-font
+  font-inconsolata-nerd-font
+  
+  $ brew install font-inconsolata-for-powerline font-inconsolata-go-nerd-font font-inconsolata-nerd-font
+
+MacOS fonts are installed in your homedir at ~/Library/Fonts.
+
+Next check your font settings in Iterm2.
+Preferences->Profiles->Default->Text
+Select your font in the Font combo box.
+Uncheck "Use a different font for non-ASCII text"
+
+
+# Font setup on linux
+
+1. Install fonts
+For the VED environment, make sure you install the fonts in your jumphost, not on your dev vm.
+
+You can install basic fonts from debian packages:
+  sudo apt install fonts-inconsolata
+However this is not the nerd version so it lacks the extra glyphs you want for neovim.
+
+I don't see any fancy font installer for ubuntu /debian so it seems like the standard way to install fonts is this:
+
+ * download the fonts you want from https://www.nerdfonts.com/font-downloads
+ * install them in ~/.local/share/fonts.
+This can be done with wget or curl, see examples on the page above.
+
+
+2. Configure fonts
+In gnome-terminal 3.18.3, select Edit->Profile Prefences.
+Select a nerd font.
