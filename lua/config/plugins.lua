@@ -335,7 +335,6 @@ use 'github/copilot.vim'
 use { 'camspiers/snap', rocks = {'fzy'}, disable = true }
 -- use "nathom/filetype.nvim"
 -- use 'simrat39/symbols-outline.nvim'
-use { 'stevearc/aerial.nvim'}
 use { 'sindrets/diffview.nvim', config = 'require"diffview".setup()', cmd = 'DiffviewOpen' }
 -- use { 'TimUntersberger/neogit', config = "require'neogit'.setup()" }
 
