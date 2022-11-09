@@ -24,7 +24,7 @@ vim.cmd 'colorscheme onedark'
 
 -- vim.keymap.set('n', '<space>f', require'scripts'.send_to_tmux)
 -- vim.keymap.set('n', '<leader>f', function() require'scripts'.send_to_tmux(true) end)
-vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
+-- vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
 vim.keymap.set('n', '<space>og', require'finders'.git)
 vim.keymap.set('n', '<space>oo', require'finders'.find)
 vim.keymap.set('n', '<space>ob', '<cmd> Telescope buffers<cr>')

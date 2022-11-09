@@ -2,6 +2,7 @@
 --   https://github.com/rockerBOO/awesome-neovim
 
 vim.api.nvim_exec(
+  -- automatically run PackerCompile whenever plugins.lua is written
   [[
   augroup Packer
     autocmd!
@@ -23,6 +24,9 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute("packadd packer.nvim")
 end
 
+require("packer").init({
+  log = { level = 'debug' }
+})
 return require("packer").startup(function()
 
   local Use = function(plugin)
@@ -331,8 +335,6 @@ vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
 
 
 use {'thinca/vim-quickrun', cmd = 'QuickRun'}
-use 'github/copilot.vim'
-use { 'camspiers/snap', rocks = {'fzy'}, disable = true }
 -- use "nathom/filetype.nvim"
 -- use 'simrat39/symbols-outline.nvim'
 use { 'sindrets/diffview.nvim', config = 'require"diffview".setup()', cmd = 'DiffviewOpen' }
@@ -357,15 +359,7 @@ use {'onsails/lspkind-nvim'}
 
 Use { 'abecodes/tabout.nvim', after = {'nvim-cmp'}}
 
--- testing
-
--- Approach 1: old-school vim-test pacakge, written in vimscript, but ruby focused, 
--- use 'tpope/vim-dispatch'
--- use 'skywind3000/asyncrun.vim'
--- use 'vim-test/vim-test'
-
--- Testing
-
+-- Code testing
 use({
   'nvim-neotest/neotest',
   requires = {
