@@ -340,7 +340,6 @@ use {'thinca/vim-quickrun', cmd = 'QuickRun'}
 -- use "nathom/filetype.nvim"
 -- use 'simrat39/symbols-outline.nvim'
 use { 'sindrets/diffview.nvim', config = 'require"diffview".setup()', cmd = 'DiffviewOpen' }
--- use { 'TimUntersberger/neogit', config = "require'neogit'.setup()" }
 
 -- Use { 'sidebar-nvim/sidebar.nvim', branch = "dev" }
 -- Use { 'anuvyklack/pretty-fold.nvim', requires = 'anuvyklack/nvim-keymap-amend' }
