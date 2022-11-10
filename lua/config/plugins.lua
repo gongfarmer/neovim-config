@@ -24,9 +24,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute("packadd packer.nvim")
 end
 
+-- customize config of packer before #startup. Can be deleted when no customizations are wanted
 require("packer").init({
   log = { level = 'debug' }
 })
+
 return require("packer").startup(function()
 
   local Use = function(plugin)

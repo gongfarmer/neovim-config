@@ -1,7 +1,5 @@
 vim.opt.termguicolors = true
-vim.opt.shell = '/bin/zsh'                             -- Set zsh as default shell
 vim.opt.diffopt = 'filler,iwhite'                      -- In diff mode, ignore whitespace changes and align unchanged lines
-vim.opt.fileencodings = 'ucs-bom,utf-8,default,latin1' -- encoding
 vim.opt.modeline = true                                   -- turn on modeline
 vim.opt.number = true                                     -- show line numbers
 vim.opt.showmode = true                                   -- Show current mode down the bottom
@@ -16,12 +14,15 @@ vim.opt.scrolljump = 5                               -- Lines to scroll when cur
 vim.opt.splitbelow = true                                 -- set panel split position
 vim.opt.splitright = true
 vim.opt.foldlevelstart = 1                           -- start folding from specyfic level
-vim.opt.guicursor = ''                               -- reset cursor shape
 vim.opt.iskeyword = vim.opt.iskeyword + '-'                               -- add `-` character as part of words
 -- set wrapmargin=2                             -- Wrap 2 characters from the edge of the window
 vim.opt.fileignorecase = true                             -- case is ignored when using file names and directories
 vim.opt.mouse = 'a'                                    -- enable mouse
 vim.opt.autoread = false                               -- disable file change detection
+
+-- Do not set this, it breaks noice
+-- 2022-11-09 on neovim 0.9-dev
+--- vim.opt.guicursor = ''                               -- reset cursor shape
 
 -- cursorline: subtly brighten the line that the cursor is on
 vim.opt.cursorline = true
