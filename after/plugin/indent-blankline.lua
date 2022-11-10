@@ -48,3 +48,7 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
   -- }
   -- because lazy load indent-blankline so need readd this autocmd
   vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
+
+  -- Start with plugin disabled
+  -- Turn it on as needed using the key mapping
+vim.cmd('let g:indent_blankline_enabled = v:false')
