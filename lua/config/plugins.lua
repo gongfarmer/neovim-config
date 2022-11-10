@@ -130,6 +130,7 @@ return require("packer").startup(function()
 
   Use({ "windwp/nvim-autopairs"})
 
+  -- TODO: this doesn't seem to do anything.  Delete?
   use({
     "numToStr/Navigator.nvim",
     config = function()
@@ -137,10 +138,11 @@ return require("packer").startup(function()
       local map = vim.api.nvim_set_keymap
       local opts = { noremap = true, silent = true }
 
-      map("n", "<c-h>", "<CMD>lua require('Navigator').left()<CR>", opts)
-      map("n", "<c-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
-      map("n", "<c-k>", "<CMD>lua require('Navigator').up()<CR>", opts)
-      map("n", "<c-l>", "<CMD>lua require('Navigator').right()<CR>", opts)
+      -- Fraser: don't remap c-l. I like the default.
+--      map("n", "<c-h>", "<CMD>lua require('Navigator').left()<CR>", opts)
+--      map("n", "<c-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
+--      map("n", "<c-k>", "<CMD>lua require('Navigator').up()<CR>", opts)
+--      map("n", "<c-l>", "<CMD>lua require('Navigator').right()<CR>", opts)
     end,
   })
 
