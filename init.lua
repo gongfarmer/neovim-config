@@ -20,9 +20,9 @@ if os.getenv('INSTALL') then return end
 require "config.lsp"
 require "config.dap"
 
-vim.cmd 'colorscheme onedark'
+vim.cmd('colorscheme onedark')
 
-vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
+--vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
 vim.keymap.set('n', '<space>og', require'finders'.git)
 vim.keymap.set('n', '<space>oo', require'finders'.find)
 vim.keymap.set('n', '<space>ob', '<cmd> Telescope buffers<cr>')
@@ -50,14 +50,14 @@ vim.cmd 'hi LspReferenceWrite gui=italic guibg=#393e46'
 
 -- return true if file exists and is readable
 function file_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
+  local f=io.open(name,"r")
+  if f~=nil then io.close(f) return true else return false end
 end
 
--- return the path to the dir containing this file (NOT the current working dir)
+-- return the path to the dir containing this source file (NOT the current working dir)
 function script_path()
-   local str = debug.getinfo(2, "S").source:sub(2)
-   return str:match("(.*/)")
+  local str = debug.getinfo(2, "S").source:sub(2)
+  return str:match("(.*/)")
 end
 
 -- Load local customizations last from local.lua, if it exists.
