@@ -366,7 +366,7 @@ Use { 'abecodes/tabout.nvim', after = {'nvim-cmp'}}
 use({
   'nvim-neotest/neotest',
   requires = {
-    "nvim-lua/plenary.nvim",
+    "nvim-neotest/neotest-plenary",
     "nvim-treesitter/nvim-treesitter",
     'olimorris/neotest-rspec',
     --     'antoinemadec/FixCursorHold.nvim',

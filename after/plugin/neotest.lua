@@ -16,17 +16,19 @@ local status_ok, neotest = pcall(require, "neotest")
 if not status_ok then return end
 
 neotest.setup({
-  adapters = { require("neotest-rspec"), ({
-    -- set the comand that neotest uses to run rspec.
-    -- FIXME: use this to break the dependency on bundle and make it so I no longer need a Gemfile to run tests
-    rspec_cmd = function()
-      return vim.tbl_flatten({
-        "bundle",
-        "exec",
-        "rspec",
-      })
-    end
-  })},
+  adapters = {
+    require("neotest-plenary"),
+    require("neotest-rspec") ({
+      -- set the comand that neotest uses to run rspec.
+      -- FIXME: use this to break the dependency on bundle and make it so I no longer need a Gemfile to run tests
+      rspec_cmd = function()
+        return vim.tbl_flatten({
+          "rake",
+          "spec",
+        })
+      end
+    })
+  },
   diagnostic = {
     enabled = true
   },
