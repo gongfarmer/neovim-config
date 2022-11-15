@@ -9,6 +9,8 @@
 -- If the tests are all failed but have no output, step back and run that
 -- command on a single test to see if there is an environment problem.
 
+-- logs here: ~/.local/state/nvim/neotest.log
+
 -- FIXME: needs some keyboard shorcuts
 
 -- neotest configuration copied from prdanelli

@@ -321,6 +321,11 @@ use {
 }
 
 
+-- harpoon
+-- Switch between a small set of numbered buffers easily
+--
+use { 'ThePrimeagen/harpoon' }
+
 -- aerial
 use {
   'stevearc/aerial.nvim',
