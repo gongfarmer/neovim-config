@@ -1,7 +1,7 @@
 -- key bindings for harpoon, a buffer switching plugin
 
--- ,a : add current to harpoon file list
-vim.cmd('nnoremap <leader>a <cmd>lua require("harpoon.mark").add_file()<CR>')
+-- ,m : add current to mark list
+vim.cmd('nnoremap <leader>m <cmd>lua require("harpoon.mark").add_file()<CR>')
 vim.cmd('nnoremap <C-e> <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>')
 
 -- hjkl: easy to access because they are the RHS home row keys.

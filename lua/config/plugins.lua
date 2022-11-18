@@ -326,7 +326,7 @@ use {
 --
 use { 'ThePrimeagen/harpoon' }
 
--- aerial
+-- aerial - sidebar of all functions in the file
 use {
   'stevearc/aerial.nvim',
   config =
@@ -339,8 +339,6 @@ use {
     })
     end
 }
--- You probably also want to set a keymap to toggle aerial
-vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
 
 
 use {'thinca/vim-quickrun', cmd = 'QuickRun'}

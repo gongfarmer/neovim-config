@@ -15,6 +15,10 @@ vim.cmd('nnoremap ;; <cmd>NnnExplorer %:p:h<cr>')
 -- start/stop showing those colored indentation guide lines
 vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
 
+
+-- show Aerial sidebar (shows functions in the file)
+vim.cmd('nnoremap <leader>a <cmd>AerialToggle!<CR>')
+
 -- nnn
 --  The %:p:h argument makes it open the dirname of the file in the active buffer
 vim.cmd('nnoremap sf <cmd>NnnPicker %:p:h<CR>') -- 'see files'
