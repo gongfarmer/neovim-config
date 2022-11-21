@@ -16,6 +16,7 @@ function prequire(...)
   return nil
 end
 
+-- debug printing of a lua objects
 function p(...)
   if #{ ... } > 1 then
     print(vim.inspect({ ... }))
@@ -23,6 +24,7 @@ function p(...)
     print(vim.inspect(...))
   end
 end
+
 
 local function open_github()
   local line = vim.api.nvim_get_current_line()

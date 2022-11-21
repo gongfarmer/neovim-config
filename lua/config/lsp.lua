@@ -1,8 +1,20 @@
+-- Mason: installs remote packages (not nvim plugins) such as linters, formatters, etc.
 -- https://www.reddit.com/r/neovim/comments/w6w5ij/introducing_masonnvim/
+
+-- WARNING [2022-11-21]
+-- Currently the use of 'gq{MOTION}' is broken by the setup of null-ls.
+-- The problem is that some of the null-ls formatters want to modify buffers, so they set formatexpr to call an lsp function.
+-- This changes the behavior of gq (see :help gq for some clues.).
+-- You can restore the gq functionality with this:   :se formatexpr=
+
+-- REQUIRED_ORDER: 1) mason + mason-lspconfig
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup()
+
+
+-- REQUIRED_ORDER: 2) on_attach actions to perform when lsp client attaches to buffer
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -32,7 +44,7 @@ local function on_attach(client, bufnr)
   lsp_functions.highlights(client)
 end
 
-for i, server in ipairs(servers) do
+for _, server in ipairs(servers) do
   local settings = Settings[server] or {}
 
   require('lspconfig')[server].setup {
@@ -41,7 +53,31 @@ for i, server in ipairs(servers) do
     settings = settings,
   }
 end
-local navic = require("nvim-navic")
+
+-- REQUIRED_ORDER: 3) null-ls
+local null_ls = require("null-ls")
+
+null_ls.setup({
+    on_attach = on_attach, -- run the local on_attach function to set keybindings
+    sources = {
+        null_ls.builtins.code_actions.shellcheck,
+        null_ls.builtins.diagnostics.codespell,
+        null_ls.builtins.diagnostics.commitlint,
+        null_ls.builtins.diagnostics.markdownlint,
+        null_ls.builtins.diagnostics.shellcheck,
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.rubocop,
+        null_ls.builtins.formatting.stylua,
+    },
+})
+
+-- REQUIRED_ORDER: 4) mason-null-ls
+require("mason-null-ls").setup({
+    automatic_setup = true,
+})
+-- REQUIRED ORDER complete
+
+
 
 DiagnosticConfig = {
   virtual_text = false

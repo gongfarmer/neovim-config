@@ -107,10 +107,14 @@ return require("packer").startup(function()
   -- === LSP ===
 
   use "neovim/nvim-lspconfig"
-  use "williamboman/mason.nvim"
-  use "williamboman/mason-lspconfig.nvim"
   use "glepnir/lspsaga.nvim"
-  use "jose-elias-alvarez/null-ls.nvim"
+  use { -- group of related plugins. Order is not important here, but setup() order is important
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "jose-elias-alvarez/null-ls.nvim",
+    "jayp0521/mason-null-ls.nvim", -- makes NullLs install plugins through mason
+  }
+
 
   -- == complete ==
 
@@ -203,7 +207,6 @@ return require("packer").startup(function()
 
   Use({
     "nvim-telescope/telescope.nvim",
-    -- commit = "ec6c13fc092fe8447df77e35013df907a6f3761e",
     requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } }
   })
 
