@@ -26,6 +26,26 @@ function p(...)
 end
 
 
+function compile_plugins()
+  package.loaded["config.plugins"] = nil
+  require 'config.plugins'
+  vim.cmd 'PackerCompile'
+end
+
+-- return true if file exists and is readable
+function file_exists(name)
+  local f=io.open(name,"r")
+  if f~=nil then io.close(f) return true else return false end
+end
+
+-- return the path to the dir containing this source file (NOT the current working dir)
+function script_path()
+  local str = debug.getinfo(2, "S").source:sub(2)
+  return str:match("(.*/)")
+end
+
+-- ===== local functions
+
 local function open_github()
   local line = vim.api.nvim_get_current_line()
   local repo = line:match([['(.-/.-)']]) or line:match([["(.-/.-)"]])
@@ -46,12 +66,6 @@ local function open_config()
   vim.cmd('edit ' .. config .. filename .. '.lua')
 end
 
-function compile_plugins()
-  package.loaded["config.plugins"] = nil
-  require 'config.plugins'
-  vim.cmd 'PackerCompile'
-end
-
 local function config_file(file)
   vim.api.nvim_command(("runtime config/%s.vim"):format(file))
 end
@@ -63,7 +77,6 @@ local function update()
 end
 
 vim.cmd [[command! Update lua require'config.helpers'.update()]]
-
 return {
   config_file = config_file,
   update = update,

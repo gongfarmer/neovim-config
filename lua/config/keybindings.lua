@@ -1,20 +1,35 @@
 vim.cmd "let g:mapleader=','"
 
+-- ====== Telescope
+
+
+--vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
+vim.keymap.set('n', '<space>og', require'finders'.git)
+vim.keymap.set('n', '<space>oo', require'finders'.find)
+vim.keymap.set('n', '<space>ob', '<cmd> Telescope buffers<cr>')
+vim.keymap.set('n', '<space>or', '<cmd> Telescope lsp_references<cr>') -- show callers of this method
+
+vim.keymap.set('n', '<space>oq', function()
+  require'finders'.find {
+    cwd = vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h'),
+    pattern = "(lua|vim)$"
+  }
+end)
+
+vim.keymap.set('n', '<space>of', require'finders'.grep)
+vim.keymap.set('n', '<space>of', "<cmd>lua require'finders'.live_grep()<cr>")
+vim.keymap.set('n', '<space>ow', "<cmd>Telescope workspaces<cr>")
+vim.keymap.set('n', '<space>oh', "<cmd>Telescope help_tags<cr>")
+vim.keymap.set('n', '<space>oz', "<cmd>Telescope zoxide list<cr>")
+vim.keymap.set('n', '<space><c-o><c-o>', "<cmd>Telescope resume<cr>")
+vim.keymap.set('n', '<space>o<c-o>', "<cmd>Telescope resume<cr>")
 vim.cmd('nnoremap ;f <cmd>lua require("telescope.builtin").find_files()<cr>')
 vim.cmd('nnoremap ;b <cmd>lua require("telescope.builtin").buffers()<cr>')
 vim.cmd('nnoremap ;r <cmd>lua require("telescope.builtin").live_grep()<cr>')
 vim.cmd('nnoremap ;; <cmd>NnnExplorer %:p:h<cr>')
 
--- Defx file browser
--- vim.cmd('nnoremap fi <cmd>Defx<cr>')
--- function! defx_my_settings()
---   vim.cmd('nnoremap <silent><buffer><expr> <CR> defx#do_action("open")')
--- end
--- vim.cmd('autocmd FileType defx call vim.fn.defx_my_settings()')
-
 -- start/stop showing those colored indentation guide lines
 vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
-
 
 -- show Aerial sidebar (shows functions in the file)
 vim.cmd('nnoremap <leader>a <cmd>AerialToggle!<CR>')
@@ -30,11 +45,12 @@ vim.cmd('nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>')
 -- open my keybindings file
 vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/keybindings.txt<CR>')
 
-
 -- Make C-a, C-e, C-k work (emacs-style) while entering cmds at the :
 vim.cmd('cnoremap <C-a> <Home>')
 vim.cmd('cnoremap <C-e> <End>')
 vim.cmd('cnoremap <C-k> <C-\\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>')
+
+vim.cmd([[nmap <leader>t <Plug>PlenaryTestFile]])
 
 -- F1 : alternate 'esc'
 vim.cmd('map <F1> <ESC>')

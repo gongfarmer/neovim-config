@@ -19,6 +19,7 @@ My old config only had bindings for live grep, find files, and search help so th
 <space>of    live grep
 <space>oo    find
 <space>ob    buffers
+<space>or    references - show calls to the method under the cursor!
 <space>oq    list your vim configuration files
 <space>ow    telescope workspaces
 <space>oh    telescope help_tags
