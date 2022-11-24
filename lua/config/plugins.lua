@@ -25,9 +25,9 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- customize config of packer before #startup. Can be deleted when no customizations are wanted
-require("packer").init({
-  log = { level = 'debug' }
-})
+-- require("packer").init({
+--   log = { level = 'debug' }
+-- })
 
 return require("packer").startup(function()
 
