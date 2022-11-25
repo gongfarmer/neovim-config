@@ -35,15 +35,12 @@ vim.cmd [[highlight CursorLineNr guifg=#e5c07b]] -- highlight the line number of
 vim.opt.list = true
 vim.opt.listchars = 'tab:»»,trail:·,nbsp:·'
 
-vim.opt.hidden = true
-
 -- Indentation
 vim.opt.smartindent = true
 vim.opt.shiftwidth=2
 vim.opt.softtabstop=2
 vim.opt.tabstop=2
 vim.opt.expandtab = true
-vim.opt.cindent = true
 
 -- turn on plugins and indentation based on filetype
 -- filetype plugin on
@@ -58,10 +55,8 @@ vim.opt.wildoptions = 'pum'
 vim.opt.errorbells = false
 
 -- search options
-vim.opt.gdefault = true       -- use global as default in regexp
 vim.opt.ignorecase = true     -- Ignore case in search patterns
 vim.opt.smartcase = true      -- Override ignorecase if the pattern contains upper case characters
-vim.opt.synmaxcol = 1000      -- max search in columns
 
 vim.opt.inccommand = 'nosplit' --Shows the effects of a substitution incrementally, as you type
 
