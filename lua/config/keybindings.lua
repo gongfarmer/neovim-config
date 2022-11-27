@@ -2,13 +2,7 @@ vim.cmd "let g:mapleader=','"
 
 -- ====== Telescope
 
-
---vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
-vim.keymap.set('n', '<space>og', require'finders'.git)
-vim.keymap.set('n', '<space>oo', require'finders'.find)
-vim.keymap.set('n', '<space>ob', '<cmd> Telescope buffers<cr>')
-vim.keymap.set('n', '<space>or', '<cmd> Telescope lsp_references<cr>') -- show callers of this method
-
+-- find lua/vim files in my nvim configuration dir
 vim.keymap.set('n', '<space>oq', function()
   require'finders'.find {
     cwd = vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h'),
@@ -16,17 +10,28 @@ vim.keymap.set('n', '<space>oq', function()
   }
 end)
 
-vim.keymap.set('n', '<space>of', require'finders'.grep)
-vim.keymap.set('n', '<space>of', "<cmd>lua require'finders'.live_grep()<cr>")
-vim.keymap.set('n', '<space>ow', "<cmd>Telescope workspaces<cr>")
-vim.keymap.set('n', '<space>oh', "<cmd>Telescope help_tags<cr>")
-vim.keymap.set('n', '<space>oz', "<cmd>Telescope zoxide list<cr>")
+-- new-style keymaps for telescope
 vim.keymap.set('n', '<space><c-o><c-o>', "<cmd>Telescope resume<cr>")
 vim.keymap.set('n', '<space>o<c-o>', "<cmd>Telescope resume<cr>")
+vim.keymap.set('n', '<space>ob', '<cmd> Telescope buffers<cr>')
+vim.keymap.set('n', '<space>of', "<cmd>lua require'finders'.live_grep()<cr>")
+--vim.keymap.set('n', '<space>of', require'finders'.grep)
+vim.keymap.set('n', '<space>og', require'finders'.git)
+vim.keymap.set('n', '<space>oh', "<cmd>Telescope help_tags<cr>")
+vim.keymap.set('n', '<space>ok', "<cmd>Telescope keymaps<cr>")
+vim.keymap.set('n', '<space>oo', require'finders'.find) -- find files under pwd
+vim.keymap.set('n', '<space>or', '<cmd> Telescope lsp_references<cr>') -- show callers of this method
+vim.keymap.set('n', '<space>ow', "<cmd>Telescope workspaces<cr>")
+vim.keymap.set('n', '<space>oz', "<cmd>Telescope zoxide list<cr>")
+
+-- old-style keymaps that I am still used to, now redundant because of the above
 vim.cmd('nnoremap ;f <cmd>lua require("telescope.builtin").find_files()<cr>')
 vim.cmd('nnoremap ;b <cmd>lua require("telescope.builtin").buffers()<cr>')
 vim.cmd('nnoremap ;r <cmd>lua require("telescope.builtin").live_grep()<cr>')
 vim.cmd('nnoremap ;; <cmd>NnnExplorer %:p:h<cr>')
+
+--vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
+
 
 -- start/stop showing those colored indentation guide lines
 vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
