@@ -24,11 +24,12 @@ vim.keymap.set('n', '<space>or', '<cmd> Telescope lsp_references<cr>') -- show c
 vim.keymap.set('n', '<space>ow', "<cmd>Telescope workspaces<cr>")
 vim.keymap.set('n', '<space>oz', "<cmd>Telescope zoxide list<cr>")
 
+-- DISABLED because I want the stock meaning of ';' back
 -- old-style keymaps that I am still used to, now redundant because of the above
-vim.cmd('nnoremap ;f <cmd>lua require("telescope.builtin").find_files()<cr>')
-vim.cmd('nnoremap ;b <cmd>lua require("telescope.builtin").buffers()<cr>')
-vim.cmd('nnoremap ;r <cmd>lua require("telescope.builtin").live_grep()<cr>')
-vim.cmd('nnoremap ;; <cmd>NnnExplorer %:p:h<cr>')
+-- vim.cmd('nnoremap ;f <cmd>lua require("telescope.builtin").find_files()<cr>')
+-- vim.cmd('nnoremap ;b <cmd>lua require("telescope.builtin").buffers()<cr>')
+-- vim.cmd('nnoremap ;r <cmd>lua require("telescope.builtin").live_grep()<cr>')
+-- vim.cmd('nnoremap ;; <cmd>NnnExplorer %:p:h<cr>')
 
 --vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
 
