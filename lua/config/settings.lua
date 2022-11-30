@@ -1,20 +1,20 @@
-vim.opt.termguicolors = true
+vim.opt.termguicolors = true                           -- enable 24 bit RGB color in the terminal
 vim.opt.diffopt = 'filler,iwhite'                      -- In diff mode, ignore whitespace changes and align unchanged lines
-vim.opt.modeline = true                                   -- turn on modeline
-vim.opt.number = true                                     -- show line numbers
-vim.opt.showmode = true                                   -- Show current mode down the bottom
-vim.opt.showmatch = true                                  -- highlight matching bracket
---vim.opt.lazyredraw = true                                 -- redraw only when we need to.
-vim.opt.linebreak = true                                  -- Wrap lines at convenient points
-vim.opt.backup = false                                   -- prevent backup
-vim.opt.swapfile = false                                 -- prevent swapfile
-vim.opt.writebackup = false                              -- prevent backup
-vim.opt.scrolljump = 5                               -- Lines to scroll when cursor leaves screen
--- set backupdir=~/.backup,./.backup,/tmp            -- set backup directory
-vim.opt.splitbelow = true                                 -- set panel split position
-vim.opt.splitright = true
-vim.opt.foldlevelstart = 1                           -- start folding from specyfic level
-vim.opt.iskeyword = vim.opt.iskeyword + '-'                               -- add `-` character as part of words
+vim.opt.modeline = true                                -- turn on modeline
+vim.opt.number = true                                  -- show line numbers
+vim.opt.showmode = true                                -- Show current mode down the bottom
+vim.opt.showmatch = true                               -- highlight matching bracket
+--vim.opt.lazyredraw = true                              -- redraw only when we need to.
+vim.opt.linebreak = true                               -- Wrap lines at convenient points
+vim.opt.backup = false                                 -- prevent backup
+vim.opt.swapfile = false                               -- prevent swapfile
+vim.opt.writebackup = false                            -- prevent backup
+vim.opt.scrolljump = 5                                 -- Lines to scroll when cursor leaves screen
+-- set backupdir=~/.backup,./.backup,/tmp                -- set backup directory
+vim.opt.splitbelow = true                              -- set panel split position
+vim.opt.splitright = true                              -- put new window to the right of the current one
+vim.opt.foldlevelstart = 1                             -- start folding from specified level
+vim.opt.iskeyword = vim.opt.iskeyword + '-'            -- add `-` character as part of words
 -- set wrapmargin=2                             -- Wrap 2 characters from the edge of the window
 vim.opt.fileignorecase = true                             -- case is ignored when using file names and directories
 vim.opt.mouse = 'a'                                    -- enable mouse
@@ -67,8 +67,9 @@ vim.opt.signcolumn='yes'
 
 vim.opt.updatetime = 300
 
-vim.opt.shortmess:append "sI"
+vim.opt.shortmess:append "s"
 
+-- use ripgrep
 if vim.fn.executable('rg') == 1 then
   vim.opt.grepprg = 'rg -i --vimgrep $*'
   vim.opt.grepformat = '%f:%l:%c:%m'
