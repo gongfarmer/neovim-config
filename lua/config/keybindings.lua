@@ -10,32 +10,32 @@ vim.keymap.set('n', '<space>oq', function()
   }
 end)
 
--- new-style keymaps for telescope
-vim.keymap.set('n', '<space><c-o><c-o>', "<cmd>Telescope resume<cr>")
+-- keymaps for telescope
+-- (use C-n and C-p to move selection up or down in Telescope)
+-- keymaps are named after the shortest set of chars describing the telescope command
+-- To see all available pickers: :Telescop builtin
+vim.keymap.set('n', '<space>b', '<cmd> Telescope buffers<cr>')
+vim.keymap.set('n', '<space>ff', '<cmd> Telescope find_files<cr>')
+--vim.keymap.set('n', '<space>ff', require'finders'.find) -- looks the same as Telescope find_files
+vim.keymap.set('n', '<space>g', require'finders'.git) -- better than Telescope git_files
+vim.keymap.set('n', '<space>h', "<cmd>Telescope help_tags<cr>")
+vim.keymap.set('n', '<space>k', "<cmd>Telescope keymaps<cr>")
+vim.keymap.set('n', '<space>ld', '<cmd> Telescope lsp_definitions<cr>') -- show where variable is defined
+vim.keymap.set('n', '<space>lg', "<cmd> Telescope live_grep<cr>")
+vim.keymap.set('n', '<space>lr', '<cmd> Telescope lsp_references<cr>') -- show callers of this method
+--vim.keymap.set('n', '<space>of', require'finders'.grep) -- live grep alternative? doesn't work
+vim.keymap.set('n', '<space>z', "<cmd>Telescope zoxide list<cr>")
+vim.keymap.set('n', '<space><c-o><c-o>', "<cmd>Telescope resume<cr>") -- re-open the previous picker in same state
 vim.keymap.set('n', '<space>o<c-o>', "<cmd>Telescope resume<cr>")
-vim.keymap.set('n', '<space>ob', '<cmd> Telescope buffers<cr>')
-vim.keymap.set('n', '<space>of', "<cmd>lua require'finders'.live_grep()<cr>")
---vim.keymap.set('n', '<space>of', require'finders'.grep)
-vim.keymap.set('n', '<space>og', require'finders'.git)
-vim.keymap.set('n', '<space>oh', "<cmd>Telescope help_tags<cr>")
-vim.keymap.set('n', '<space>ok', "<cmd>Telescope keymaps<cr>")
-vim.keymap.set('n', '<space>oo', require'finders'.find) -- find files under pwd
-vim.keymap.set('n', '<space>or', '<cmd> Telescope lsp_references<cr>') -- show callers of this method
-vim.keymap.set('n', '<space>ow', "<cmd>Telescope workspaces<cr>")
-vim.keymap.set('n', '<space>oz', "<cmd>Telescope zoxide list<cr>")
 
 -- DISABLED because I want the stock meaning of ';' back
--- old-style keymaps that I am still used to, now redundant because of the above
--- vim.cmd('nnoremap ;f <cmd>lua require("telescope.builtin").find_files()<cr>')
--- vim.cmd('nnoremap ;b <cmd>lua require("telescope.builtin").buffers()<cr>')
--- vim.cmd('nnoremap ;r <cmd>lua require("telescope.builtin").live_grep()<cr>')
 -- vim.cmd('nnoremap ;; <cmd>NnnExplorer %:p:h<cr>')
 
 --vim.keymap.set('n', '<c-q>', require'scripts'.quickfix_toggle)
 
 
 -- start/stop showing those colored indentation guide lines
-vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
+vim.cmd('nnoremap ,<leader> <cmd>IndentBlanklineToggle<cr>')
 
 -- show Aerial sidebar (shows functions in the file)
 vim.cmd('nnoremap <leader>a <cmd>AerialToggle!<CR>')
