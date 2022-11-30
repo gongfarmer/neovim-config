@@ -61,7 +61,7 @@ null_ls.setup({
     on_attach = on_attach, -- run the local on_attach function to set keybindings
     sources = {
         null_ls.builtins.code_actions.shellcheck,
-        null_ls.builtins.diagnostics.codespell,
+--        null_ls.builtins.diagnostics.codespell,  -- causes not found warning at work
         null_ls.builtins.diagnostics.commitlint,
         null_ls.builtins.diagnostics.markdownlint,
         null_ls.builtins.diagnostics.shellcheck,
