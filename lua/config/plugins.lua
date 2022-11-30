@@ -361,7 +361,7 @@ use { 'mbbill/undotree', cmd = 'UndotreeToggle'}
 
 
 -- file browser
-use { "luukvbaal/nnn.nvim", config = 'require"nnn".setup()' }
+use { "luukvbaal/nnn.nvim", config = 'require"nnn".setup({replace_netrw = "picker"})' }
 
 use {'dstein64/vim-startuptime', opt = true}
 use {'onsails/lspkind-nvim'}
