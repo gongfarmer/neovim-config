@@ -22,8 +22,6 @@ require "config.dap"
 
 vim.cmd('colorscheme onedark')
 
-vim.cmd([[nmap <leader>t <Plug>PlenaryTestFile]])
-
 vim.cmd 'hi LspReferenceText gui=italic guibg=#393e46'
 vim.cmd 'hi LspReferenceRead gui=italic guibg=#393e46'
 vim.cmd 'hi LspReferenceWrite gui=italic guibg=#393e46'

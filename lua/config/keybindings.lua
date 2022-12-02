@@ -78,8 +78,6 @@ end)
 vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/keybindings.txt<CR>')
 vim.cmd('nnoremap ,K <cmd>edit ~/.config/nvim/lua/config/keybindings.lua<CR>')
 
-vim.cmd([[nmap <leader>t <Plug>PlenaryTestFile]])
-
 -- F1 : alternate 'esc'
 vim.cmd('map <F1> <ESC>')
 vim.cmd('imap <F1> <ESC>')
