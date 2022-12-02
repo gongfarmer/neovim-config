@@ -1,22 +1,46 @@
 vim.cmd "let g:mapleader=','"
 
--- ====== Telescope
+-- ===== vim-projectionist
+-- :A    move between source file and its rspec test file
 
--- find lua/vim files in my nvim configuration dir
-vim.keymap.set('n', '<space>oq', function()
-  require'finders'.find {
-    cwd = vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h'),
-    pattern = "(lua|vim)$"
-  }
-end)
+-- ===== vim-unimpaired
+--[[
+  ]q    :cnext
+  [q    :cprevious
+  [a    :next
+  [a    :previous
+  [os   :set spell
+  ]os   :set nospell
+  yos   :set invspell
+  [x    decode xml
+  ]x    encode xml
+  [n    visit next file in dir
+  ]n    visit previous file in dir
+]]--
 
--- Packer
-vim.keymap.set('n', '<Leader>pu', '<cmd> PackerUpdate<cr>')
+-- ===== Random useful commands
+--[[
+  :TsPlaygroundToggle   show the treesitter parse tree of your code!
+  :SplitjoinSplit       split a 1-line ruby statement to 2 lines
+  :SplitjoinJoin        combine a 2-line ruby statement into 1 line
+  :UndoTreeToggle
+  :nmap           list normal mode key mappings
+  :verbose nmap   list normal mode key mappings, and where they were last defined
+  :vmap           list visual mode key mappings
+  :imap           list insert mode key mappings
+  :PackerCompile  to create plugin/packer_compiled.lua from lua/config/plugins.lua
+  :PackerClean    remove plugins that are no longer in the config
+  :PackerStatus   list installed / loaded plugins
+  :PackerInstall
+  :PackerUpdate   upgrade to latest plugin versions
+  :PackerSync     compile+install/remove
 
--- Telescope
+--]]
+
+-- ===== Telescope
 -- (use C-n and C-p to move selection up or down in Telescope)
 -- keymaps are named after the shortest set of chars describing the telescope command
--- To see all available pickers: :Telescop builtin
+-- To see all available pickers: :Telescope builtin
 vim.keymap.set('n', '<space>b', '<cmd> Telescope buffers<cr>')
 vim.keymap.set('n', '<space>ff', '<cmd> Telescope find_files<cr>')
 --vim.keymap.set('n', '<space>ff', require'finders'.find) -- looks the same as Telescope find_files
@@ -31,7 +55,16 @@ vim.keymap.set('n', '<space>z', "<cmd>Telescope zoxide list<cr>")
 vim.keymap.set('n', '<space><c-o><c-o>', "<cmd>Telescope resume<cr>") -- re-open the previous picker in same state
 vim.keymap.set('n', '<space>o<c-o>', "<cmd>Telescope resume<cr>")
 
---- Lspsaga (stolen from glepnir/nvim)
+-- find lua/vim files in my nvim configuration dir
+vim.keymap.set('n', '<space>oq', function()
+  require'finders'.find {
+    cwd = vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h'),
+    pattern = "(lua|vim)$"
+  }
+end)
+
+--- ===== Lspsaga (stolen from glepnir/nvim)
+-- check :LspLog to see its logging
 vim.keymap.set('n', '[e', '<cmd> Lspsaga diagnostic_jump_next<cr>')
 vim.keymap.set('n', ']e', '<cmd> Lspsaga diagnostic_jump_prev<cr>')
 vim.keymap.set('n', '[c', '<cmd> Lspsaga show_cursor_diagnostics<cr>')
@@ -43,7 +76,6 @@ vim.keymap.set('n', 'gs', '<cmd> Lspsaga signature_help<cr>')
 vim.keymap.set('n', 'gr', '<cmd> Lspsaga rename<cr>')
 vim.keymap.set('n', 'gh', '<cmd> Lspsaga lsp_finder<cr>')
 vim.keymap.set('n', '<Leader>o', '<cmd> LSoutlineToggle<cr>')
--- ALso remember to check :LspLog once in a while
 
 -- start/stop showing those colored indentation guide lines
 vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
@@ -51,7 +83,7 @@ vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
 -- show Aerial sidebar (shows functions in the file)
 vim.cmd('nnoremap <leader>a <cmd>AerialToggle!<CR>')
 
--- nnn
+-- ===== nnn
 -- Used for looking at files in the local buffer's dirpath.
 -- For finding files from the editor's working dir, use :Telescope find_files
 --  The %:p:h argument makes it open at the dirname of the file in the active buffer
@@ -61,7 +93,7 @@ vim.cmd('tnoremap <C-A-p> <cmd>NnnPicker<CR>')
 vim.cmd('tnoremap <C-A-n> <cmd>NnnExplorer<CR>')
 vim.cmd('nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>')
 
--- neotest
+-- ===== neotest
 -- see neotest.lua setup/summarymappings for keymaps to use inside the neotest window
 vim.cmd('nnoremap <leader>t <cmd>lua require("neotest").run.run()<CR>') -- run nearest test
 vim.cmd('nnoremap <leader>tf <cmd>lua require("neotest").run.run(vim.fn.expand("%%"))<CR>') -- test file
@@ -76,9 +108,11 @@ vim.keymap.set('n', '<leader>ta', function()
   end
 end)
 
+-- ===== Packer
+vim.keymap.set('n', '<Leader>pu', '<cmd> PackerUpdate<cr>')
+
 -- open my keybindings file
-vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/keybindings.txt<CR>')
-vim.cmd('nnoremap ,K <cmd>edit ~/.config/nvim/lua/config/keybindings.lua<CR>')
+vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/lua/config/keybindings.lua<CR>')
 
 -- F1 : alternate 'esc'
 vim.cmd('map <F1> <ESC>')
