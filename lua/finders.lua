@@ -1,4 +1,6 @@
-local Job = require("plenary.job")
+local Job = prequire("plenary.job")
+if not Job then return end
+
 local conf = require("telescope.config").values
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")

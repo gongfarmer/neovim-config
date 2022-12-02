@@ -7,6 +7,9 @@
 -- This changes the behavior of gq (see :help gq for some clues.).
 -- You can restore the gq functionality with this:   :se formatexpr=
 
+-- bail out early if mason not installed
+if not prequire('mason') then return end
+
 -- REQUIRED_ORDER: 1) mason + mason-lspconfig
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")

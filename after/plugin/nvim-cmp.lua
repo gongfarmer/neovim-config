@@ -1,5 +1,7 @@
-local cmp = require'cmp'
-local lspkind = require('lspkind')
+cmp = prequire('cmp')
+lspkind = prequire('lspkind')
+if not cmp then return end
+if not lspkind then return end
 
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)

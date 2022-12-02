@@ -41,6 +41,8 @@ vim.cmd "let g:mapleader=','"
 -- (use C-n and C-p to move selection up or down in Telescope)
 -- keymaps are named after the shortest set of chars describing the telescope command
 -- To see all available pickers: :Telescope builtin
+local ok, _ = pcall(require, "neogit")
+if not ok then return end
 vim.keymap.set('n', '<space>b', '<cmd> Telescope buffers<cr>')
 vim.keymap.set('n', '<space>ff', '<cmd> Telescope find_files<cr>')
 --vim.keymap.set('n', '<space>ff', require'finders'.find) -- looks the same as Telescope find_files
@@ -102,7 +104,9 @@ vim.cmd('nnoremap <leader>ts <cmd>lua require("neotest").summary.open()<CR>')
 
 -- run entire test suite
 vim.keymap.set('n', '<leader>ta', function()
-  local neotest = require('neotest')
+  local neotest = prequire('neotest')
+  if not neotest then return end
+
   for _, adapter_id in ipairs(neotest.run.adapters()) do
     neotest.run.run({ suite = true, adapter = adapter_id })
   end

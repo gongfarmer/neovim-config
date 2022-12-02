@@ -1,3 +1,6 @@
+local ok, _ = prequire('indent_blankline')
+if not ok then return end
+
 -- vim.cmd [[highlight IndentOne guifg=#BF616A guibg=NONE gui=nocombine]]
 -- vim.cmd [[highlight IndentTwo guifg=#D08770 guibg=NONE gui=nocombine]]
 -- vim.cmd [[highlight IndentThree guifg=#EBCB8B guibg=NONE gui=nocombine]]

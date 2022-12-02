@@ -1,3 +1,5 @@
+if not prequire('winbar') then return end
+
 require('winbar').setup({
     enabled = true,
 

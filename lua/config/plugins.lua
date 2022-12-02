@@ -1,8 +1,22 @@
--- awesome plugins for neovom:
---   https://github.com/rockerBOO/awesome-neovim
+-- install packer if needed
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+local packer_bootstrap = ensure_packer()
 
+
+-- bail out if packer not installed
+if not prequire('packer') then return end
+
+-- automatically run PackerCompile whenever plugins.lua is written
 vim.api.nvim_exec(
-  -- automatically run PackerCompile whenever plugins.lua is written
   [[
   augroup Packer
     autocmd!
@@ -132,8 +146,7 @@ return require("packer").startup(function()
   use("nvim-treesitter/nvim-treesitter-textobjects")
   use("nvim-treesitter/nvim-treesitter-refactor")
   use("nvim-treesitter/playground")
-
-  Use({ "nvim-treesitter/nvim-treesitter"})
+  use("nvim-treesitter/nvim-treesitter")
 
   Use({ "windwp/nvim-autopairs"})
 
@@ -191,7 +204,7 @@ return require("packer").startup(function()
 
   use("kevinhwang91/nvim-bqf")
   use({ "junegunn/fzf", run = ":call fzf#install()", cmd = 'FZF' })
-  use({ "norcalli/nvim-colorizer.lua", config = 'require"colorizer".setup()' })
+  use({ "norcalli/nvim-colorizer.lua", config = 'require("colorizer").setup()' })
   use{"jbyuki/one-small-step-for-vimkind", opt = true}
 
   use({
@@ -292,7 +305,7 @@ use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'Mar
 -- * json: show json path at top of screen
 -- * code: show current method / class context
 use { 'phelipetls/jsonpath.nvim' }
-use { 'fgheng/winbar.nvim', config = 'require"winbar".setup({})' }
+use { 'fgheng/winbar.nvim' }
 use {
     "SmiteshP/nvim-navic",
     requires = "neovim/nvim-lspconfig"

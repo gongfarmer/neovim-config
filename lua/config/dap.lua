@@ -1,6 +1,8 @@
 package.loaded["config/dap"] = nil
 
-require("dapui").setup()
+if not prequire("dapui") then return end
+
+require('dapui').setup()
 
 vim.cmd [[command! Dap lua require("dapui").toggle()]]
 

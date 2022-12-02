@@ -17,7 +17,9 @@ if os.getenv('INSTALL') then return end
 require "config.lsp"
 require "config.dap"
 
-vim.cmd('colorscheme onedark')
+if prequire('onedark') then
+  vim.cmd('colorscheme onedark')
+end
 
 -- Load local customizations last from local.lua, if it exists.
 -- This file is not checked into git.
