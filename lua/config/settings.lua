@@ -57,6 +57,7 @@ vim.opt.errorbells = false
 -- search options
 vim.opt.ignorecase = true     -- Ignore case in search patterns
 vim.opt.smartcase = true      -- Override ignorecase if the pattern contains upper case characters
+vim.opt.incsearch = true
 
 vim.opt.inccommand = 'nosplit' --Shows the effects of a substitution incrementally, as you type
 

@@ -89,6 +89,10 @@ require("mason-null-ls").setup({
 --   vim.diagnostic.config(DiagnosticConfig)
 -- end)
 
+vim.cmd 'hi LspReferenceText gui=italic guibg=#393e46'
+vim.cmd 'hi LspReferenceRead gui=italic guibg=#393e46'
+vim.cmd 'hi LspReferenceWrite gui=italic guibg=#393e46'
+
 local saga = require("lspsaga")
 saga.init_lsp_saga({
   code_action_keys = {
