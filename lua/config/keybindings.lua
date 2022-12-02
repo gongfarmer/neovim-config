@@ -10,7 +10,10 @@ vim.keymap.set('n', '<space>oq', function()
   }
 end)
 
--- keymaps for telescope
+-- Packer
+vim.keymap.set('n', '<Leader>pu', '<cmd> PackerUpdate<cr>')
+
+-- Telescope
 -- (use C-n and C-p to move selection up or down in Telescope)
 -- keymaps are named after the shortest set of chars describing the telescope command
 -- To see all available pickers: :Telescop builtin
@@ -27,6 +30,20 @@ vim.keymap.set('n', '<space>lr', '<cmd> Telescope lsp_references<cr>') -- show c
 vim.keymap.set('n', '<space>z', "<cmd>Telescope zoxide list<cr>")
 vim.keymap.set('n', '<space><c-o><c-o>', "<cmd>Telescope resume<cr>") -- re-open the previous picker in same state
 vim.keymap.set('n', '<space>o<c-o>', "<cmd>Telescope resume<cr>")
+
+--- Lspsaga (stolen from glepnir/nvim)
+vim.keymap.set('n', '[e', '<cmd> Lspsaga diagnostic_jump_next<cr>')
+vim.keymap.set('n', ']e', '<cmd> Lspsaga diagnostic_jump_prev<cr>')
+vim.keymap.set('n', '[c', '<cmd> Lspsaga show_cursor_diagnostics<cr>')
+vim.keymap.set('n', '[l', '<cmd> Lspsaga show_line_diagnostics<cr>') -- was L, reclaimed for end-of-line
+vim.keymap.set('n', 'K',  '<cmd> Lspsaga hover_doc<cr>')
+vim.keymap.set('n', 'ga', '<cmd> Lspsaga code_action<cr>')
+vim.keymap.set('n', 'gd', '<cmd> Lspsaga peek_definition<cr>')
+vim.keymap.set('n', 'gs', '<cmd> Lspsaga signature_help<cr>')
+vim.keymap.set('n', 'gr', '<cmd> Lspsaga rename<cr>')
+vim.keymap.set('n', 'gh', '<cmd> Lspsaga lsp_finder<cr>')
+vim.keymap.set('n', '<Leader>o', '<cmd> LSoutlineToggle<cr>')
+-- ALso remember to check :LspLog once in a while
 
 -- DISABLED because I want the stock meaning of ';' back
 -- vim.cmd('nnoremap ;; <cmd>NnnExplorer %:p:h<cr>')
