@@ -398,7 +398,6 @@ use 'ojroques/vim-oscyank'
 
 Use {'kylechui/nvim-surround'}
 Use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
-use { 'kkoomen/vim-doge', run = function() vim.fn['doge#install']() end  }
 use {'stevearc/dressing.nvim', config = "require'dressing'.setup()" }
 
 

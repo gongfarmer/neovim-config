@@ -77,18 +77,17 @@ require("mason-null-ls").setup({
 })
 -- REQUIRED ORDER complete
 
-
-
-DiagnosticConfig = {
-  virtual_text = false
-}
-
-vim.diagnostic.config(DiagnosticConfig)
-
-vim.keymap.set('n', 'yoe', function()
-  DiagnosticConfig.virtual_text = not DiagnosticConfig.virtual_text
-  vim.diagnostic.config(DiagnosticConfig)
-end)
+-- 2022-12-02 [Fraser] this seems to be broken and causes a keymap conflict
+-- DiagnosticConfig = {
+--   virtual_text = false
+-- }
+--
+-- vim.diagnostic.config(DiagnosticConfig)
+--
+-- vim.keymap.set('n', 'yoe', function()
+--   DiagnosticConfig.virtual_text = not DiagnosticConfig.virtual_text
+--   vim.diagnostic.config(DiagnosticConfig)
+-- end)
 
 local saga = require("lspsaga")
 saga.init_lsp_saga({
