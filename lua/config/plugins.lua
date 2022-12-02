@@ -345,17 +345,9 @@ use {
 
 
 use {'thinca/vim-quickrun', cmd = 'QuickRun'}
--- use "nathom/filetype.nvim"
--- use 'simrat39/symbols-outline.nvim'
 use { 'sindrets/diffview.nvim', config = 'require"diffview".setup()', cmd = 'DiffviewOpen' }
 
--- Use { 'sidebar-nvim/sidebar.nvim', branch = "dev" }
--- Use { 'anuvyklack/pretty-fold.nvim', requires = 'anuvyklack/nvim-keymap-amend' }
-Use 'rlane/pounce.nvim'
 use {"elihunter173/dirbuf.nvim", cmd = 'Dirbuf'}
--- use { "natecraddock/workspaces.nvim", config = "require'workspaces'.setup()" }
--- use { 'ibhagwan/fzf-lua', requires = { 'kyazdani42/nvim-web-devicons' } }
--- use {"j-hui/fidget.nvim", config = "require'fidget'.setup{}" }
 use {'hoschi/yode-nvim', disable = true}
 use { 'mbbill/undotree', cmd = 'UndotreeToggle'}
 
