@@ -52,7 +52,7 @@ vim.keymap.set('n', '<Leader>o', '<cmd> LSoutlineToggle<cr>')
 
 
 -- start/stop showing those colored indentation guide lines
-vim.cmd('nnoremap ,<leader> <cmd>IndentBlanklineToggle<cr>')
+vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
 
 -- show Aerial sidebar (shows functions in the file)
 vim.cmd('nnoremap <leader>a <cmd>AerialToggle!<CR>')
@@ -65,8 +65,24 @@ vim.cmd('tnoremap <C-A-p> <cmd>NnnPicker<CR>')
 vim.cmd('tnoremap <C-A-n> <cmd>NnnExplorer<CR>')
 vim.cmd('nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>')
 
+-- neotest
+-- see neotest.lua setup/summarymappings for keymaps to use inside the neotest window
+vim.cmd('nnoremap <leader>t <cmd>lua require("neotest").run.run()<CR>') -- run nearest test
+vim.cmd('nnoremap <leader>tf <cmd>lua require("neotest").run.run(vim.fn.expand("%%"))<CR>') -- test file
+vim.cmd('nnoremap <leader>tl <cmd>lua require("neotest").run.run_last()<CR>')
+vim.cmd('nnoremap <leader>tt <cmd>lua require("neotest").summary.open()<CR>')
+
+-- test entire suite
+vim.keymap.set('n', '<leader>ts', function()
+  local neotest = require('neotest')
+  for _, adapter_id in ipairs(neotest.run.adapters()) do
+    neotest.run.run({ suite = true, adapter = adapter_id })
+  end
+end)
+
 -- open my keybindings file
 vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/keybindings.txt<CR>')
+vim.cmd('nnoremap ,K <cmd>edit ~/.config/nvim/lua/config/keybindings.lua<CR>')
 
 -- Make C-a, C-e, C-k work (emacs-style) while entering cmds at the :
 vim.cmd('cnoremap <C-a> <Home>')

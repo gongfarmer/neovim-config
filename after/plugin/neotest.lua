@@ -14,19 +14,18 @@
 -- FIXME: needs some keyboard shorcuts
 
 -- neotest configuration copied from prdanelli
-local status_ok, neotest = pcall(require, "neotest")
-if not status_ok then return end
+local ok, neotest = pcall(require, "neotest")
+if not ok then return end
 
 neotest.setup({
   adapters = {
     require("neotest-plenary"),
     require("neotest-rspec") ({
       -- set the comand that neotest uses to run rspec.
-      -- FIXME: use this to break the dependency on bundle and make it so I no longer need a Gemfile to run tests
+      -- rspec command-line options will be appended, so you can't put `rake spec` here
       rspec_cmd = function()
         return vim.tbl_flatten({
-          "rake",
-          "spec",
+          "rspec",
         })
       end
     })
@@ -37,10 +36,11 @@ neotest.setup({
   discovery = {
     enabled = true
   },
+  log_level = 1,
   floating = {
     border = "rounded",
-    max_height = 0.6,
-    max_width = 0.6,
+    max_height = 0.8,
+    max_width = 0.9,
     options = {}
   },
   highlights = {
