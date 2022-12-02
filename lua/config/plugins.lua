@@ -92,12 +92,15 @@ return require("packer").startup(function()
   }
 
   -- === tpope ===
-  use("tpope/vim-unimpaired")
-  use("tpope/vim-fugitive")
   -- use("tpope/vim-surround")
-  use("tpope/vim-repeat")
   use("tpope/vim-abolish")
+  use("tpope/vim-fugitive")
+  -- needs .projections.json in project root to define mapping between source and test
+  -- adds :A to move between source and test file
+  use("tpope/vim-projectionist")
   use("tpope/vim-rails")
+  use("tpope/vim-repeat")
+  use("tpope/vim-unimpaired")
 
   -- === DAP ===
   use "mfussenegger/nvim-dap"
