@@ -11,8 +11,6 @@
 
 -- logs here: ~/.local/state/nvim/neotest.log
 
--- FIXME: needs some keyboard shorcuts
-
 -- neotest configuration copied from prdanelli
 local ok, neotest = pcall(require, "neotest")
 if not ok then return end
@@ -22,6 +20,7 @@ neotest.setup({
     require("neotest-plenary"),
     require("neotest-rspec") ({
       -- set the comand that neotest uses to run rspec.
+      -- default: 'bundle exec rspec'
       -- rspec command-line options will be appended, so you can't put `rake spec` here
       rspec_cmd = function()
         return vim.tbl_flatten({
