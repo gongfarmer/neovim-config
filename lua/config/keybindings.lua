@@ -118,6 +118,9 @@ vim.keymap.set('n', '<Leader>pu', '<cmd> PackerUpdate<cr>')
 -- open my keybindings file
 vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/lua/config/keybindings.lua<CR>')
 
+-- I always mistype :w as :W, which opens :WhichKey instead of saving
+vim.cmd('cab W w')
+
 -- F1 : alternate 'esc'
 vim.cmd('map <F1> <ESC>')
 vim.cmd('imap <F1> <ESC>')
