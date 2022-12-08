@@ -78,6 +78,8 @@ vim.keymap.set('n', 'gs', '<cmd> Lspsaga signature_help<cr>')
 vim.keymap.set('n', 'gr', '<cmd> Lspsaga rename<cr>')
 vim.keymap.set('n', 'gh', '<cmd> Lspsaga lsp_finder<cr>')
 vim.keymap.set('n', '<Leader>o', '<cmd> LSoutlineToggle<cr>')
+-- also, normal mode 'gq' is set to do LSP formatting in an LSP on_attach handler
+
 
 -- start/stop showing those colored indentation guide lines
 vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')

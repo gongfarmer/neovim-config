@@ -2,10 +2,11 @@
 -- https://www.reddit.com/r/neovim/comments/w6w5ij/introducing_masonnvim/
 
 -- WARNING [2022-11-21]
--- Currently the use of 'gq{MOTION}' is broken by the setup of null-ls.
--- The problem is that some of the null-ls formatters want to modify buffers, so they set formatexpr to call an lsp function.
--- This changes the behavior of gq (see :help gq for some clues.).
+-- Currently the use of 'gq{MOTION}' is broken by LSP.
+-- The LSP clients set formatexpr to call an LSP-specific function, 
+-- but this function fails to format anything.
 -- You can restore the gq functionality with this:   :se formatexpr=
+-- [UPDATE 2022-12-08] Now I map 'gq' to explicitly call the LSP formatter instead of letting the vim default figure it out.
 
 -- bail out early if mason not installed
 if not prequire('mason') then return end
@@ -40,6 +41,12 @@ Settings.sumneko_lua = {
 local function on_attach(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
+  end
+  if client.server_capabilities.documentFormattingProvider then
+    -- configure keymap for code formatting if the lsp client can do that
+    -- from nvim-lspconfig recommended setup
+    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    vim.keymap.set('n', 'gq', function() vim.lsp.buf.format { async = true } end, bufopts)
   end
 
   local lsp_functions = require('config.lsp_functions')
