@@ -91,7 +91,21 @@ return require("packer").startup(function()
     }
   end}
 
-  -- use({ "norcalli/nvim-terminal.lua", config = 'require"terminal".setup()' })
+  -- golang
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua'
+  local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.go",
+    callback = function()
+      require('go.format').goimport()
+    end,
+    group = format_sync_grp,
+  })
+  require('go').setup()
+
+
+  --require('go').setup() use({ "norcalli/nvim-terminal.lua", config = 'require"terminal".setup()' })
 
   --  use({"folke/which-key.nvim", cmd = 'WhichKey'})
   use {
