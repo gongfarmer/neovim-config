@@ -91,8 +91,8 @@ vim.cmd('nnoremap <leader>a <cmd>AerialToggle!<CR>')
 -- Used for looking at files in the local buffer's dirpath.
 -- For finding files from the editor's working dir, use :Telescope find_files
 --  The %:p:h argument makes it open at the dirname of the file in the active buffer
-vim.cmd('nnoremap sf <cmd>NnnPicker %:p:h<CR>') -- 'see files' in floating window
-vim.cmd('nnoremap fi <cmd>NnnExplorer %:p:h<CR>') -- list files in sidebar
+vim.cmd('nnoremap <Leader>sf <cmd>NnnPicker %:p:h<CR>') -- 'see files' in floating window
+vim.cmd('nnoremap <Leader>fi <cmd>NnnExplorer %:p:h<CR>') -- list files in sidebar
 vim.cmd('tnoremap <C-A-p> <cmd>NnnPicker<CR>')
 vim.cmd('tnoremap <C-A-n> <cmd>NnnExplorer<CR>')
 vim.cmd('nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>')
