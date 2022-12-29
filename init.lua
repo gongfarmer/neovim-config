@@ -4,11 +4,11 @@
 --    (files in after/ are not automatically read, but it is available to use for require)
 -- The order in which dirs/files are read is determined by the runtimepath (:se rtp)
 
--- # This is how to print a message that will be logged in :messages
+-- This is how to print a message that will be logged in :messages
 -- print("hello from init.lua")
 
 require 'config.helpers'
-require "config.keybindings"
+require "config.keybindings" -- must happen before plugins load
 require "config.settings"
 require "config.plugins" -- could eliminate this by moving plugin config files to after/plugin
 
@@ -24,7 +24,7 @@ end
 -- Load local customizations last from local.lua, if it exists.
 -- This file is not checked into git.
 -- It contains environment-specific customizations, such as different colorchemes for different sites.
-path = script_path() .. 'lua/config/local.lua'
+local path = script_path() .. 'lua/config/local.lua'
 if file_exists(path) then
   require 'config.local'
 end

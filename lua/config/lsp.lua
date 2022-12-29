@@ -1,290 +1,138 @@
--- Mason: installs remote packages (not nvim plugins) such as linters, formatters, etc.
--- https://www.reddit.com/r/neovim/comments/w6w5ij/introducing_masonnvim/
+-- LSP settings  (all from kickstart.nvim)
+--  This function gets run when an LSP connects to a particular buffer.
+local on_attach = function(_, bufnr)
+  -- NOTE: Remember that lua is a real programming language, and as such it is possible
+  -- to define small helper and utility functions so you don't have to repeat yourself
+  -- many times.
+  --
+  -- In this case, we create a function that lets us more easily define mappings specific
+  -- for LSP related items. It sets the mode, buffer and description for us each time.
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
 
--- WARNING [2022-11-21]
--- Currently the use of 'gq{MOTION}' is broken by LSP.
--- The LSP clients set formatexpr to call an LSP-specific function, 
--- but this function fails to format anything.
--- You can restore the gq functionality with this:   :se formatexpr=
--- [UPDATE 2022-12-08] Now I map 'gq' to explicitly call the LSP formatter instead of letting the vim default figure it out.
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
 
--- bail out early if mason not installed
-if not prequire('mason') then return end
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
--- REQUIRED_ORDER: 1) mason + mason-lspconfig
-require("mason").setup()
-local mason_lspconfig = require("mason-lspconfig")
+  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-mason_lspconfig.setup()
+  -- See `:help K` for why this keymap
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
+  -- Lesser used LSP functionality
+  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+  nmap('<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, '[W]orkspace [L]ist Folders')
 
--- REQUIRED_ORDER: 2) on_attach actions to perform when lsp client attaches to buffer
+  -- Create a command `:Format` local to the LSP buffer
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    vim.lsp.buf.format()
+  end, { desc = 'Format current buffer with LSP' })
+end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Enable the following language servers
+--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+--
+--  Add any additional override configuration in the following tables. They will be passed to
+--  the `settings` field of the server config. You must look up that documentation yourself.
+local servers = {
+  -- clangd = {},
+  -- gopls = {},
+  -- pyright = {},
+  -- rust_analyzer = {},
+  -- tsserver = {},
 
--- configure plugin which finds code context to put in the winbar
-local navic = require("nvim-navic")
-
-local servers = mason_lspconfig.get_installed_servers()
-vim.list_extend(servers, {'solargraph'})
-
-Settings = {}
-Settings.sumneko_lua = {
-  Lua = {
-    diagnostics = {
-      globals = { "vim", "describe", "it", "p", "luapad", "use", "before_each" },
-      disable = { "lowercase-global" },
+  sumneko_lua = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
     },
-  }
+  },
 }
 
-local function on_attach(client, bufnr)
-  if client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
-  end
-  if client.server_capabilities.documentFormattingProvider then
-    -- configure keymap for code formatting if the lsp client can do that
-    -- from nvim-lspconfig recommended setup
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gq', function() vim.lsp.buf.format { async = true } end, bufopts)
-  end
+-- Setup neovim lua configuration
+require('neodev').setup()
+--
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-  local lsp_functions = require('config.lsp_functions')
-  lsp_functions.keybindings(bufnr)
-  lsp_functions.highlights(client)
-end
+-- Setup mason so it can manage external tooling
+require('mason').setup()
 
-for _, server in ipairs(servers) do
-  local settings = Settings[server] or {}
+-- Ensure the servers above are installed
+local mason_lspconfig = require 'mason-lspconfig'
 
-  require('lspconfig')[server].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = settings,
-  }
-end
+mason_lspconfig.setup {
+  ensure_installed = vim.tbl_keys(servers),
+}
 
--- REQUIRED_ORDER: 3) null-ls
-local null_ls = require("null-ls")
+mason_lspconfig.setup_handlers {
+  function(server_name)
+    require('lspconfig')[server_name].setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = servers[server_name],
+    }
+  end,
+}
 
-null_ls.setup({
-    on_attach = on_attach, -- run the local on_attach function to set keybindings
-    sources = {
-        null_ls.builtins.code_actions.shellcheck,
---        null_ls.builtins.diagnostics.codespell,  -- causes not found warning at work
-        null_ls.builtins.diagnostics.commitlint,
-        null_ls.builtins.diagnostics.markdownlint,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.formatting.prettier,
-        null_ls.builtins.formatting.rubocop,
-        null_ls.builtins.formatting.stylua,
+-- Turn on lsp status information
+require('fidget').setup()
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+local luasnip = require 'luasnip'
+
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
     },
-})
-
--- REQUIRED_ORDER: 4) mason-null-ls
-require("mason-null-ls").setup({
-    automatic_setup = true,
-})
--- REQUIRED ORDER complete
-
--- 2022-12-02 [Fraser] this seems to be broken and causes a keymap conflict
--- DiagnosticConfig = {
---   virtual_text = false
--- }
---
--- vim.diagnostic.config(DiagnosticConfig)
---
--- vim.keymap.set('n', 'yoe', function()
---   DiagnosticConfig.virtual_text = not DiagnosticConfig.virtual_text
---   vim.diagnostic.config(DiagnosticConfig)
--- end)
-
-vim.cmd 'hi LspReferenceText gui=italic guibg=#393e46'
-vim.cmd 'hi LspReferenceRead gui=italic guibg=#393e46'
-vim.cmd 'hi LspReferenceWrite gui=italic guibg=#393e46'
-
-local saga = require("lspsaga")
-saga.init_lsp_saga({
-  code_action_keys = {
-    quit = "<esc>",
-    exec = "<CR>",
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
   },
-  finder_action_keys = {
-    open = "<cr>",
-    vsplit = "s",
-    split = "i",
-    tabe = "t",
-    quit = "<esc>",
-    scroll_down = "<C-f>",
-    scroll_up = "<C-b>"
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
   },
-  show_outline = {
-    win_position = 'right',
-    win_with = '',
-    win_width = 30,
-    auto_enter = true,
-    auto_preview = true,
-    virt_text = '┃',
-    jump_key = '<cr>',
-    auto_refresh = true,
-  }
-})
+}
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
-
-
--- virtual_text = {
---   show = false,
---   settings = {
---     spacing = 4,
---     prefix = "← ",
---   },
--- }
-
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
---   underline = true,
---   virtual_text = false,
---   signs = true,
--- })
-
--- local function make_config()
---   local capabilities = vim.lsp.protocol.make_client_capabilities()
---   capabilities.textDocument.completion.completionItem.snippetSupport = true
---   -- capabilities.textDocument.foldingRange = {
---   --   dynamicRegistration = false,
---   --   lineFoldingOnly = true
---   -- }
-
---   local cmp_lsp = prequire('cmp_nvim_lsp')
-
---   if cmp_lsp then
---     capabilities = cmp_lsp.update_capabilities(capabilities)
---   else
---     print_warn('cmp_nvim_lsp not found')
---   end
-
---   return {
---     capabilities = capabilities,
---     on_attach = on_attach,
---   }
--- end
-
--- local function disable_default_formating(client, bufnr)
---   local null_ls = prequire('null-ls')
---   if not null_ls then return print_warn('null-ls not found') end
-
---   client.server_capabilities.documentFormattingProvider = false
---   client.server_capabilities.document_range_formatting = false
-
---   vim.api.nvim_buf_set_keymap(
---     bufnr, "n", "Q", "<cmd>lua vim.lsp.buf.formatting()<CR>", { noremap = true, silent = true }
---   )
---   vim.cmd "command! Format lua vim.lsp.buf.formatting()<CR>"
--- end
-
--- local Servers = {}
-
--- Servers.sumneko_lua = function(config)
---   local lua_dev = prequire('neodev')
---   if not lua_dev then return print_warn('neodev not found') end
-
---   local lua_dev_config = lua_dev.setup {
---     lspconfig = {
---       settings = {
---         Lua = {
---           diagnostics = {
---             globals = { "vim", "describe", "it", "p", "luapad", "use", "before_each" },
---             disable = { "lowercase-global" },
---           },
---         }
---       }
---     }
---   }
-
---   return vim.tbl_extend('force', config, lua_dev_config)
--- end
-
--- Servers.tsserver = function(config)
---   config.on_attach = function(client, bufnr)
---     disable_default_formating(client, bufnr)
---     on_attach(client, bufnr)
-
---     local ts_utils_required, ts_utils = pcall(require, 'nvim-lsp-ts-utils')
---     if ts_utils_required then
---       ts_utils.setup {
---         debug = false,
---         disable_commands = false,
---         enable_import_on_completion = false,
---         -- eslint
---         eslint_enable_code_actions = true,
---         eslint_enable_disable_comments = true,
---         eslint_bin = "eslint_d",
---         eslint_enable_diagnostics = false,
---         eslint_opts = {},
---       }
-
---       -- required to fix code action ranges and filter diagnostics
---       ts_utils.setup_client(client)
-
---       -- no default maps, so you may want to define some here
---       local opts = { silent = true }
---       vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
---       vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
---       vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
---     end
-
---   end
---   return config
--- end
-
--- Servers.solargraph = function(config)
---   config.on_attach = function(client, bufnr)
---     disable_default_formating(client, bufnr)
---     on_attach(client, bufnr)
---   end
---   return config
--- end
-
--- Servers.tailwindcss = function(config)
---   config.settings = {
---     tailwindCSS = {
---       experimental = {
---         classRegex = {
---         "class:\\s+\"([^\"]*)",
---         "class:\\s+'([^\']*)"
---         }
---       }
---     }
---   }
---   return config
--- end
-
--- lsp_installer.on_server_ready(function(server)
---     local config = make_config()
-
---     if Servers[server.name] then
---       config = Servers[server.name](config)
---     end
-
---     server:setup(config)
--- end)
-
-
--- local config = make_config()
--- require('lspconfig').solargraph.setup(config)
-
-
--- local null_ls = prequire('null-ls')
--- if not null_ls then return print_warn('null-ls not found') end
-
--- null_ls.setup({
---   sources = {
---     null_ls.builtins.formatting.rubocop.with({
---       args = { "--auto-correct-all", "-f", "quiet", "--stderr", "--stdin", "$FILENAME" }
---     }),
---   },
--- })

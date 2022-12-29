@@ -1,4 +1,17 @@
-vim.cmd "let g:mapleader=','"
+-- [[ Basic Keymaps ]]
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Keymaps for better default experience
+-- See `:help vim.keymap.set()`
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- ===== vim-projectionist
 -- :A    move between source file and its rspec test file
@@ -41,21 +54,29 @@ vim.cmd "let g:mapleader=','"
 -- (use C-n and C-p to move selection up or down in Telescope)
 -- keymaps are named after the shortest set of chars describing the telescope command
 -- To see all available pickers: :Telescope builtin
-local ok, _ = pcall(require, "neogit")
-if not ok then return end
-vim.keymap.set('n', '<space>b', '<cmd> Telescope buffers<cr>')
-vim.keymap.set('n', '<space>ff', '<cmd> Telescope find_files<cr>')
---vim.keymap.set('n', '<space>ff', require'finders'.find) -- looks the same as Telescope find_files
-vim.keymap.set('n', '<space>g', require'finders'.git) -- better than Telescope git_files
-vim.keymap.set('n', '<space>h', "<cmd>Telescope help_tags<cr>")
-vim.keymap.set('n', '<space>k', "<cmd>Telescope keymaps<cr>")
+
+-- See `:help telescope.builtin`
+vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>/', function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = '[/] Fuzzily search in current buffer]' })
+
+vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<space>ld', '<cmd> Telescope lsp_definitions<cr>') -- show where variable is defined
-vim.keymap.set('n', '<space>lg', "<cmd> Telescope live_grep<cr>")
 vim.keymap.set('n', '<space>lr', '<cmd> Telescope lsp_references<cr>') -- show callers of this method
---vim.keymap.set('n', '<space>of', require'finders'.grep) -- live grep alternative? doesn't work
-vim.keymap.set('n', '<space>z', "<cmd>Telescope zoxide list<cr>")
 vim.keymap.set('n', '<space><c-o><c-o>', "<cmd>Telescope resume<cr>") -- re-open the previous picker in same state
 vim.keymap.set('n', '<space>o<c-o>', "<cmd>Telescope resume<cr>")
+
 
 -- find lua/vim files in my nvim configuration dir
 vim.keymap.set('n', '<space>oq', function()
@@ -80,6 +101,12 @@ vim.keymap.set('n', 'gh', '<cmd> Lspsaga lsp_finder<cr>')
 vim.keymap.set('n', '<Leader>o', '<cmd> LSoutlineToggle<cr>')
 -- also, normal mode 'gq' is set to do LSP formatting in an LSP on_attach handler
 
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
 
 -- start/stop showing those colored indentation guide lines
 vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
@@ -91,8 +118,8 @@ vim.cmd('nnoremap <leader>a <cmd>AerialToggle!<CR>')
 -- Used for looking at files in the local buffer's dirpath.
 -- For finding files from the editor's working dir, use :Telescope find_files
 --  The %:p:h argument makes it open at the dirname of the file in the active buffer
-vim.cmd('nnoremap <Leader>sf <cmd>NnnPicker %:p:h<CR>') -- 'see files' in floating window
-vim.cmd('nnoremap <Leader>fi <cmd>NnnExplorer %:p:h<CR>') -- list files in sidebar
+vim.cmd('nnoremap ,sf <cmd>NnnPicker %:p:h<CR>') -- 'see files' in floating window
+vim.cmd('nnoremap ,fi <cmd>NnnExplorer %:p:h<CR>') -- list files in sidebar
 vim.cmd('tnoremap <C-A-p> <cmd>NnnPicker<CR>')
 vim.cmd('tnoremap <C-A-n> <cmd>NnnExplorer<CR>')
 vim.cmd('nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>')

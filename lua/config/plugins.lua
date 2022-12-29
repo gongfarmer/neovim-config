@@ -16,17 +16,12 @@ local packer_bootstrap = ensure_packer()
 if not prequire('packer') then return end
 
 -- automatically run PackerCompile whenever plugins.lua is written
-vim.api.nvim_exec(
-  [[
-  augroup Packer
-    autocmd!
-    autocmd BufWritePost plugins.lua call v:lua.compile_plugins()
-    autocmd BufEnter plugins.lua nnoremap go :lua require'config.helpers'.open_github()<cr>
-    autocmd BufEnter plugins.lua nnoremap gf :lua require'config.helpers'.open_config()<cr>
-  augroup end
-]],
-  false
-)
+local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePost', {
+  command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
+  group = packer_group,
+  pattern = vim.fn.expand '$MYVIMRC',
+})
 
 local execute = vim.api.nvim_command
 local fn = vim.fn
@@ -61,8 +56,6 @@ return require("packer").startup(function()
       use { plugin, config = config_cmd }
     end
   end
-
-  local colorscheme = "onedark.nvim"
 
   -- Color schemes
   use("navarasu/onedark.nvim")
@@ -144,23 +137,33 @@ return require("packer").startup(function()
     "williamboman/mason-lspconfig.nvim",
     "jose-elias-alvarez/null-ls.nvim",
     "jayp0521/mason-null-ls.nvim", -- makes NullLs install plugins through mason
+    "j-hui/fidget.nvim", -- status updates for lsp
+    "folke/neodev.nvim", -- additional lua configuration for plugin writers
   }
 
-
-  -- == complete ==
-
-  use 'hrsh7th/cmp-nvim-lsp'
+  -- == completion ==
+  use { -- Autocompletion
+    'hrsh7th/nvim-cmp',
+    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+  }
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
-  use 'saadparwaiz1/cmp_luasnip'
-  use('hrsh7th/nvim-cmp')
 
   -- === TreeSitter ===
-  use("nvim-treesitter/nvim-treesitter-textobjects")
+  use { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      pcall(require('nvim-treesitter.install').update { with_sync = true })
+    end,
+  }
+  use { -- Additional text objects via treesitter
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    after = 'nvim-treesitter',
+  }
   use("nvim-treesitter/nvim-treesitter-refactor")
   use("nvim-treesitter/playground")
-  use("nvim-treesitter/nvim-treesitter")
+
 
   Use({ "windwp/nvim-autopairs"})
 

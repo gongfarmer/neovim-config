@@ -25,11 +25,3 @@ require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('workspaces')
 require('telescope').load_extension('zoxide')
 require("telescope").load_extension('harpoon')
-
-
--- These don't have any effect, why?
--- I moved them to keybindings.lua, they work fine there
-vim.cmd('nnoremap ;f <cmd>lua require("telescope.builtin").find_files()<cr>')
-vim.cmd('nnoremap ;b <cmd>lua require("telescope.builtin").buffers()<cr>')
-vim.cmd('nnoremap ;r <cmd>lua require("telescope.builtin").live_grep()<cr>')
-vim.cmd('nnoremap ;; <cmd>lua require("telescope.builtin").help_tags()<cr>')
