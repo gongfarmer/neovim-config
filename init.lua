@@ -8,7 +8,7 @@
 -- print("hello from init.lua")
 
 require 'config.helpers'
-require "config.keybindings" -- must happen before plugins load
+require "config.keybindings" -- set keymap leader before loading plugins
 require "config.settings"
 require "config.plugins" -- could eliminate this by moving plugin config files to after/plugin
 

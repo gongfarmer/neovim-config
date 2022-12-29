@@ -9,7 +9,7 @@ local ensure_packer = function()
   end
   return false
 end
-local packer_bootstrap = ensure_packer()
+ensure_packer()
 
 
 -- bail out if packer not installed
@@ -38,8 +38,9 @@ end
 --   log = { level = 'debug' }
 -- })
 
-return require("packer").startup(function()
+return require("packer").startup(function(use)
 
+  -- "use" the plugin and then source its configuration file in lua/config/plugins/.
   local Use = function(plugin)
     local plugin_name = plugin
     if type(plugin) == "table" then plugin_name = plugin[1] end
@@ -96,11 +97,9 @@ return require("packer").startup(function()
     group = format_sync_grp,
   })
   require('go').setup()
+  vim.cmd('au BufNewFile,BufRead *.go set nolist')
 
-
-  --require('go').setup() use({ "norcalli/nvim-terminal.lua", config = 'require"terminal".setup()' })
-
-  --  use({"folke/which-key.nvim", cmd = 'WhichKey'})
+  vim.opt.timeout = true
   use {
     "folke/which-key.nvim",
     config = function()
@@ -116,9 +115,8 @@ return require("packer").startup(function()
   -- use("tpope/vim-surround")
   use("tpope/vim-abolish")
   use("tpope/vim-fugitive")
-  -- needs .projections.json in project root to define mapping between source and test
-  -- adds :A to move between source and test file
-  use("tpope/vim-projectionist")
+  use("tpope/vim-projectionist") -- adds :A to move between source and test file
+                                 -- needs .projections.json in project root to define mapping between source and test
   use("tpope/vim-rails")
   use("tpope/vim-repeat")
   use("tpope/vim-unimpaired")
@@ -167,22 +165,6 @@ return require("packer").startup(function()
 
   Use({ "windwp/nvim-autopairs"})
 
-  -- TODO: this doesn't seem to do anything.  Delete?
-  use({
-    "numToStr/Navigator.nvim",
-    config = function()
-      require("Navigator").setup()
-      local map = vim.api.nvim_set_keymap
-      local opts = { noremap = true, silent = true }
-
-      -- Fraser: don't remap c-l. I like the default.
---      map("n", "<c-h>", "<CMD>lua require('Navigator').left()<CR>", opts)
---      map("n", "<c-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
---      map("n", "<c-k>", "<CMD>lua require('Navigator').up()<CR>", opts)
---      map("n", "<c-l>", "<CMD>lua require('Navigator').right()<CR>", opts)
-    end,
-  })
-
   use({
     "Arkham/nvim-miniyank",
     config = function()
@@ -216,7 +198,7 @@ return require("packer").startup(function()
   })
 
 
-  Use({"lukas-reineke/indent-blankline.nvim", after = colorscheme})
+  use 'lukas-reineke/indent-blankline.nvim'
   use({"L3MON4D3/LuaSnip", config = "require 'config.plugins.luasnip'"})
 
   use("kevinhwang91/nvim-bqf")
@@ -258,160 +240,144 @@ return require("packer").startup(function()
 
   -- === statusline ===
   -- use {'glepnir/galaxyline.nvim', config = 'require"config.spaceline"'}
+  use 'konapun/vacuumline.nvim'
   use {'konapun/vacuumline.nvim',
-  requires = {
-    'glepnir/galaxyline.nvim', branch = 'main',
-    'kyazdani42/nvim-web-devicons', opt = true
-  },
-  -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
-  config = function() require('vacuumline').setup({
-    --    theme = require('vacuumline.theme.one-dark')
-    theme = require('vacuumline.theme.nord')
-  }) end
-} 
--- use {
---   'nvim-lualine/lualine.nvim',
---   requires = { 'kyazdani42/nvim-web-devicons', opt = true }
--- }
+    requires = {
+      'glepnir/galaxyline.nvim', branch = 'main',
+      'kyazdani42/nvim-web-devicons', opt = true
+    },
+    -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+    config = function() require('vacuumline').setup({
+      --    theme = require('vacuumline.theme.one-dark')
+      theme = require('vacuumline.theme.nord')
+    }) end
+  }
 
-use {
-  "folke/trouble.nvim",
-  cmd = 'Trouble',
-  after = "telescope.nvim",
-  requires = "kyazdani42/nvim-web-devicons",
-  config = function()
-    require("trouble").setup { }
-
-    local trouble = require("trouble.providers.telescope")
-    local telescope = require("telescope")
-
-    telescope.setup {
-      defaults = {
-        mappings = {
-          i = { ["<c-e>"] = trouble.open_with_trouble },
-          n = { ["<c-e>"] = trouble.open_with_trouble },
+  -- trouble - A pretty list for showing diagnostics, references, telescope results, quickfix and location lists to help you solve all the trouble your code is causing.
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    cmd = 'Trouble',
+    after = "telescope.nvim",
+    config = function()
+      require("trouble").setup {}
+      local trouble = require("trouble.providers.telescope")
+      local telescope = require("telescope")
+      telescope.setup {
+        defaults = {
+          mappings = {
+            i = { ["<c-e>"] = trouble.open_with_trouble },
+            n = { ["<c-e>"] = trouble.open_with_trouble },
+          },
         },
-      },
-    }
-
-  end
-}
-
-use { 'akinsho/nvim-toggleterm.lua', keys = [[<c-\\>]], config = function()
-  require("toggleterm").setup {
-    size = function(term)
-      if term.direction == "horizontal" then
-        return 15
-      elseif term.direction == "vertical" then
-        return vim.o.columns * 0.4
-      end
-    end,
-    open_mapping = [[<c-\>]],
-    direction = 'vertical'
-  }
-
-  vim.g.terminal_color_8 = '#595959'
-  vim.cmd 'tnoremap <c-]> <c-\\><c-n>'
-
-  require 'config.plugins.nvim-toggleterm'
-end}
-
-use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
-
--- winbar
--- * json: show json path at top of screen
--- * code: show current method / class context
-use { 'phelipetls/jsonpath.nvim' }
-use { 'fgheng/winbar.nvim' }
-use {
-    "SmiteshP/nvim-navic",
-    requires = "neovim/nvim-lspconfig"
-}
-
-
--- harpoon
--- Switch between a small set of numbered buffers easily
---
-use { 'ThePrimeagen/harpoon' }
-
--- aerial - sidebar of all functions in the file
-use {
-  'stevearc/aerial.nvim',
-  config =
-    function() require('aerial').setup({
-      on_attach = function(bufnr)
-        -- Jump forwards/backwards with '{' and '}'
-        vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
-        vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
-      end
-    })
+      }
     end
-}
-
-
-use {'thinca/vim-quickrun', cmd = 'QuickRun'}
-use { 'sindrets/diffview.nvim', config = 'require"diffview".setup()', cmd = 'DiffviewOpen' }
-
-use {"elihunter173/dirbuf.nvim", cmd = 'Dirbuf'}
-use {'hoschi/yode-nvim', disable = true}
-use { 'mbbill/undotree', cmd = 'UndotreeToggle'}
-
-
--- file browser
-use { "luukvbaal/nnn.nvim", config = 'require"nnn".setup({replace_netrw = "picker"})' }
-
-use {'dstein64/vim-startuptime', opt = true}
-use {'onsails/lspkind-nvim'}
-
-Use { 'abecodes/tabout.nvim', after = {'nvim-cmp'}}
-
--- Code testing
-use({
-  'nvim-neotest/neotest',
-  requires = {
-    "nvim-neotest/neotest-plenary",
-    "nvim-treesitter/nvim-treesitter",
-    'olimorris/neotest-rspec',
-    --     'antoinemadec/FixCursorHold.nvim',
-  },
-})
-
-
--- highly experimental plugin for replacing the UI used by lsp for messages, cmdline and popupmenu
-use({
-  "folke/noice.nvim",
-  config = function()
-    require("noice").setup()
-  end,
-  requires = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    "rcarriga/nvim-notify",
-    }
-})
-
--- Allow nvim to copy to clipboard over an ssh session.
--- Requirements:
---   configure terminal to support term instruction osc52 (google "iterm2 osc52)
---   possibly need to enable X11 forwarding on your ssh connection?  Unsure
-use 'ojroques/vim-oscyank'
-
--- use { '~/projects/dig.nvim', config = ' dig = require"dig".debug' }
-
-Use {'kylechui/nvim-surround'}
-Use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
-use {'stevearc/dressing.nvim', config = "require'dressing'.setup()" }
-
--- neogit - a git interface, similar to vim-fugitive but in lua and intends to clone magit
-use {
-  'TimUntersberger/neogit',
-  requires = {
-    'nvim-lua/plenary.nvim',
-    'sindrets/diffview.nvim'
   }
-}
 
-end)
+  use { 'akinsho/nvim-toggleterm.lua', keys = [[<c-\\>]], config = function()
+    require("toggleterm").setup {
+      size = function(term)
+        if term.direction == "horizontal" then
+          return 15
+        elseif term.direction == "vertical" then
+          return vim.o.columns * 0.4
+        end
+      end,
+      open_mapping = [[<c-\>]],
+      direction = 'vertical'
+    }
+    vim.g.terminal_color_8 = '#595959'
+    vim.cmd 'tnoremap <c-]> <c-\\><c-n>'
+    require 'config.plugins.nvim-toggleterm'
+  end}
+
+  use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
+
+  -- winbar
+  -- * json: show json path at top of screen
+  -- * code: show current method / class context
+  use { 'phelipetls/jsonpath.nvim' }
+  use { 'fgheng/winbar.nvim' }
+  use {
+      "SmiteshP/nvim-navic",
+      requires = "neovim/nvim-lspconfig"
+  }
+
+  -- harpoon - switch between a small set of numbered buffers easily
+  use { 'ThePrimeagen/harpoon' }
+
+  -- aerial - sidebar of all functions in the file
+  use {
+    'stevearc/aerial.nvim',
+    config =
+      function() require('aerial').setup({
+        on_attach = function(bufnr)
+          -- Jump forwards/backwards with '{' and '}'
+          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+        end
+      })
+      end
+  }
+
+  use {'thinca/vim-quickrun', cmd = 'QuickRun'}
+  use { 'sindrets/diffview.nvim', config = 'require"diffview".setup()', cmd = 'DiffviewOpen' }
+
+  use {"elihunter173/dirbuf.nvim", cmd = 'Dirbuf'}
+  use {'hoschi/yode-nvim', disable = true}
+  use { 'mbbill/undotree', cmd = 'UndotreeToggle'}
+
+  -- file browser
+  use { "luukvbaal/nnn.nvim", config = 'require"nnn".setup({replace_netrw = "picker"})' }
+
+  use {'dstein64/vim-startuptime', opt = true}
+  use {'onsails/lspkind-nvim'}
+
+  Use { 'abecodes/tabout.nvim', after = {'nvim-cmp'}}
+
+  -- Code testing
+  use({
+    'nvim-neotest/neotest',
+    requires = {
+      "nvim-neotest/neotest-plenary",
+      "nvim-treesitter/nvim-treesitter",
+      'olimorris/neotest-rspec',
+      --     'antoinemadec/FixCursorHold.nvim',
+    },
+  })
+
+  -- highly experimental plugin for replacing the UI used by lsp for messages, cmdline and popupmenu
+  use({
+    "folke/noice.nvim",
+    config = function()
+      require("noice").setup()
+    end,
+    requires = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+      }
+  })
+
+  -- Allow nvim to copy to clipboard over an ssh session.
+  -- Requirements:
+  --   configure terminal to support term instruction osc52 (google "iterm2 osc52)
+  --   possibly need to enable X11 forwarding on your ssh connection?  Unsure
+  use 'ojroques/vim-oscyank'
+
+  Use {'kylechui/nvim-surround'}
+  use {'stevearc/dressing.nvim', config = "require'dressing'.setup()" }
+
+  -- neogit - a git interface, similar to vim-fugitive but in lua and intends to clone magit
+  use {
+    'TimUntersberger/neogit',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim'
+    }
+  }
+
+end) -- end packer startup
