@@ -240,18 +240,18 @@ return require("packer").startup(function(use)
 
   -- === statusline ===
   -- use {'glepnir/galaxyline.nvim', config = 'require"config.spaceline"'}
-  use 'konapun/vacuumline.nvim'
-  use {'konapun/vacuumline.nvim',
-    requires = {
-      'glepnir/galaxyline.nvim', branch = 'main',
-      'kyazdani42/nvim-web-devicons', opt = true
-    },
-    -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
-    config = function() require('vacuumline').setup({
-      --    theme = require('vacuumline.theme.one-dark')
-      theme = require('vacuumline.theme.nord')
-    }) end
-  }
+
+ use {'konapun/vacuumline.nvim',
+   requires = {
+     'glepnir/galaxyline.nvim', branch = 'main',
+     'kyazdani42/nvim-web-devicons', opt = true
+   },
+   config = function() require('vacuumline').setup({
+     --    theme = require('vacuumline.theme.one-dark')
+     theme = require('vacuumline.theme.nord')
+   }) end
+ }
+  require('vacuumline').setup({ theme = require('vacuumline.theme.nord') })
 
   -- trouble - A pretty list for showing diagnostics, references, telescope results, quickfix and location lists to help you solve all the trouble your code is causing.
   use {

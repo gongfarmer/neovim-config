@@ -142,7 +142,7 @@ vim.keymap.set('n', '<leader>ta', function()
 end)
 
 -- ===== Packer
-vim.keymap.set('n', '<Leader>pu', '<cmd> PackerUpdate<cr>')
+vim.keymap.set('n', ',pu', '<cmd> PackerUpdate<cr>')
 
 -- open my keybindings file
 vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/lua/config/keybindings.lua<CR>')
