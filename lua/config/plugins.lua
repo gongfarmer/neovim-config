@@ -239,19 +239,16 @@ return require("packer").startup(function(use)
   })
 
   -- === statusline ===
-  -- use {'glepnir/galaxyline.nvim', config = 'require"config.spaceline"'}
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+  require('lualine').setup {
+ --   options = { theme  = "powerline_dark" },
+ --   options = { theme  = "horizon" },
+    options = { theme  = "seoul256" },
+  }
 
- use {'konapun/vacuumline.nvim',
-   requires = {
-     'glepnir/galaxyline.nvim', branch = 'main',
-     'kyazdani42/nvim-web-devicons', opt = true
-   },
-   config = function() require('vacuumline').setup({
-     --    theme = require('vacuumline.theme.one-dark')
-     theme = require('vacuumline.theme.nord')
-   }) end
- }
-  require('vacuumline').setup({ theme = require('vacuumline.theme.nord') })
 
   -- trouble - A pretty list for showing diagnostics, references, telescope results, quickfix and location lists to help you solve all the trouble your code is causing.
   use {
