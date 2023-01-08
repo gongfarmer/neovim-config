@@ -377,4 +377,8 @@ return require("packer").startup(function(use)
     }
   }
 
+
+  -- use colors to visually link parens with their match
+  use { 'mrjones2013/nvim-ts-rainbow'}
+
 end) -- end packer startup
