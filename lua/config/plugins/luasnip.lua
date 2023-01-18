@@ -1,3 +1,5 @@
+if not prequire("luasnip") then return end
+
 local ls = require"luasnip"
 local types = require("luasnip.util.types")
 
