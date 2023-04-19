@@ -1,10 +1,51 @@
-local ok, _ = prequire('indent_blankline')
-if not ok then return end
+require('indent_blankline').setup()
 
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
+vim.g.indent_blankline_show_trailing_blankline_indent = false
+vim.g.indent_blankline_show_current_context = true
+vim.g.indent_blankline_char = "│"
+vim.g.indent_blankline_char_highlight_list = {
+  "IndentOne",
+  "IndentTwo",
+  "IndentThree",
+  "IndentFour",
+  "IndentFive",
+  "IndentSix",
+  "IndentSeven"
 }
+
+vim.g.indent_blankline_filetype_exclude = {
+  "startify", "dashboard", "dotooagenda", "log", "fugitive", "gitcommit",
+  "packer", "vimwiki", "markdown", "json", "txt", "vista", "help",
+  "todoist", "NvimTree", "peekaboo", "git", "TelescopePrompt", "undotree",
+  "flutterToolsOutline", "" -- for all buffers without a file type
+}
+
+-- because lazy load indent-blankline so need readd this autocmd
+vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
+
+-- Start with plugin disabled
+-- Turn it on as needed using the key mapping
+vim.cmd('let g:indent_blankline_enabled = v:false')
+
+-- Reload my customized highlight groups when 'colorscheme' command is called.
+-- Works around a bug where :colorscheme was changing all colors to grey.
+vim.api.nvim_create_autocmd(
+  {"ColorScheme"},
+  {
+    pattern = "*",
+    callback = function()
+      vim.cmd [[highlight IndentOne guifg=#E06C75 gui=nocombine]]
+      vim.cmd [[highlight IndentTwo guifg=#E5C07B gui=nocombine]]
+      vim.cmd [[highlight IndentThree guifg=#98C379 gui=nocombine]]
+      vim.cmd [[highlight IndentFour guifg=#56B6C2 gui=nocombine]]
+      vim.cmd [[highlight IndentFive guifg=#61AFEF gui=nocombine]]
+      vim.cmd [[highlight IndentSix guifg=#C678DD gui=nocombine]]
+      vim.cmd [[highlight IndentSeven guifg=#5C3D56 guibg=NONE gui=nocombine]]
+    end
+  }
+)
+
+-- Alternative cool looking color palettes
 
 -- vim.cmd [[highlight IndentOne guifg=#BF616A guibg=NONE gui=nocombine]]
 -- vim.cmd [[highlight IndentTwo guifg=#D08770 guibg=NONE gui=nocombine]]
@@ -21,42 +62,3 @@ require('indent_blankline').setup {
 -- vim.cmd [[highlight IndentFive guifg=#3D4B5C guibg=NONE gui=nocombine]]
 -- vim.cmd [[highlight IndentSix guifg=#3D555C guibg=NONE gui=nocombine]]
 -- vim.cmd [[highlight IndentSeven guifg=#5C3D56 guibg=NONE gui=nocombine]]
-
-vim.cmd [[highlight IndentOne guifg=#E06C75 gui=nocombine]]
-vim.cmd [[highlight IndentTwo guifg=#E5C07B gui=nocombine]]
-vim.cmd [[highlight IndentThree guifg=#98C379 gui=nocombine]]
-vim.cmd [[highlight IndentFour guifg=#56B6C2 gui=nocombine]]
-vim.cmd [[highlight IndentFive guifg=#61AFEF gui=nocombine]]
-vim.cmd [[highlight IndentSix guifg=#C678DD gui=nocombine]]
-vim.cmd [[highlight IndentSeven guifg=#5C3D56 guibg=NONE gui=nocombine]]
-
--- vim.g.indent_blankline_char = "│"
-vim.g.indent_blankline_char_highlight_list = {
-  "IndentOne",
-  "IndentTwo",
-  "IndentThree",
-  "IndentFour",
-  "IndentFive",
-  "IndentSix",
-  "IndentSeven"
-}
-vim.g.indent_blankline_show_first_indent_level = true
-vim.g.indent_blankline_filetype_exclude = {
-  "startify", "dashboard", "dotooagenda", "log", "fugitive", "gitcommit",
-  "packer", "vimwiki", "markdown", "json", "txt", "vista", "help",
-  "todoist", "NvimTree", "peekaboo", "git", "TelescopePrompt", "undotree",
-  "flutterToolsOutline", "" -- for all buffers without a file type
-}
-vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
-vim.g.indent_blankline_show_trailing_blankline_indent = false
--- vim.g.indent_blankline_show_current_context = true
--- vim.g.indent_blankline_context_patterns = {
-  --   "class", "function", "method", "block", "list_literal", "selector",
-  --   "^if", "^table", "if_statement", "while", "for"
-  -- }
-  -- because lazy load indent-blankline so need readd this autocmd
-  vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
-
-  -- Start with plugin disabled
-  -- Turn it on as needed using the key mapping
-vim.cmd('let g:indent_blankline_enabled = v:false')

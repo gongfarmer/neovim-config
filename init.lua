@@ -22,13 +22,7 @@ require 'config.settings'
 require 'config.lazy_bootstrap'
 require("lazy").setup("plugins")
 
-if os.getenv('INSTALL') then return end
-
 require 'config.lsp'
-
-if prequire('onedark') then
-  vim.cmd('colorscheme onedark')
-end
 
 -- Load local customizations last from local.lua, if it exists.
 -- This file is not checked into git.
@@ -36,4 +30,6 @@ end
 local path = script_path() .. 'lua/config/local.lua'
 if file_exists(path) then
   require 'config.local'
+else
+  vim.cmd('colorscheme onedark')
 end

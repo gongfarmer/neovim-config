@@ -33,15 +33,10 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- ===== Random useful commands
 --[[
-  :TsPlaygroundToggle   show the treesitter parse tree of your code!
-  :SplitjoinSplit       split a 1-line ruby statement to 2 lines
-  :SplitjoinJoin        combine a 2-line ruby statement into 1 line
-  :UndoTreeToggle
   :nmap           list normal mode key mappings
   :verbose nmap   list normal mode key mappings, and where they were last defined
   :vmap           list visual mode key mappings
   :imap           list insert mode key mappings
-
 --]]
 
 -- ===== Telescope
@@ -55,32 +50,14 @@ vim.keymap.set('n', '<space>oq', function()
   }
 end)
 
---- ===== Lspsaga (stolen from glepnir/nvim)
--- check :LspLog to see its logging
-vim.keymap.set('n', '[e', '<cmd> Lspsaga diagnostic_jump_next<cr>')
-vim.keymap.set('n', ']e', '<cmd> Lspsaga diagnostic_jump_prev<cr>')
-vim.keymap.set('n', '[c', '<cmd> Lspsaga show_cursor_diagnostics<cr>')
-vim.keymap.set('n', '[l', '<cmd> Lspsaga show_line_diagnostics<cr>') -- was L, reclaimed for end-of-line
-vim.keymap.set('n', 'K',  '<cmd> Lspsaga hover_doc<cr>')
-vim.keymap.set('n', 'ga', '<cmd> Lspsaga code_action<cr>')
-vim.keymap.set('n', 'gd', '<cmd> Lspsaga peek_definition<cr>')
-vim.keymap.set('n', 'gs', '<cmd> Lspsaga signature_help<cr>')
-vim.keymap.set('n', 'gr', '<cmd> Lspsaga rename<cr>')
-vim.keymap.set('n', 'gh', '<cmd> Lspsaga lsp_finder<cr>')
-vim.keymap.set('n', '<Leader>o', '<cmd> LSoutlineToggle<cr>')
--- also, normal mode 'gq' is set to do LSP formatting in an LSP on_attach handler
-
--- Diagnostic keymaps
+-- LSP diagnostic keymaps
+-- see ls.lua for more key mappings
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
-
--- start/stop showing those colored indentation guide lines
-vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')
-
--- show Aerial sidebar (shows functions in the file)
+-- show Aerial sidebar (code outline)
 vim.cmd('nnoremap <leader>a <cmd>AerialToggle!<CR>')
 
 -- ===== nnn
@@ -148,3 +125,6 @@ vim.keymap.set('n', 'cp', ':CopyPath<cr>')
 
 -- re-select the last visual selection
 vim.keymap.set('n', '<leader>v', '`[v`]')
+
+-- start/stop showing those colored indentation guide lines
+vim.cmd('nnoremap ,i <cmd>IndentBlanklineToggle<cr>')

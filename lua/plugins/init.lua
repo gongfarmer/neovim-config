@@ -107,17 +107,10 @@ return {
     },
   },
 
-  { -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
-  },
+  -- show indentation guide lines
+  'lukas-reineke/indent-blankline.nvim',
 
-  -- Better quick-fix window
+  -- better quick-fix window
   'kevinhwang91/nvim-bqf',
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -156,8 +149,16 @@ return {
   -- FIXME: dropped "mhartington/formatter.nvim",
 
   -- Colorize background color of color names/hex codes
-  'norcalli/nvim-colorizer.lua',
+  {
+    'norcalli/nvim-colorizer.lua',
+    -- Calling setup() should be the default behaviour, but colorizer was 
+    -- loading without attaching to any buffers. This fixes it.
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
 
+  -- A pretty list for showing diagnostics, references, telescope results, quickfix and location lists to help you solve all the trouble your code is causing.
   {
     'folke/trouble.nvim',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
