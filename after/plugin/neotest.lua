@@ -109,6 +109,15 @@ neotest.setup({
   }
 })
 
+-- run entire test suite
+vim.keymap.set('n', '<leader>ta', function()
+  local neotest = prequire('neotest')
+  if not neotest then return end
+
+  for _, adapter_id in ipairs(neotest.run.adapters()) do
+    neotest.run.run({ suite = true, adapter = adapter_id })
+  end
+end)
 
 vim.cmd [[command! Neotest lua require('neotest').summary.open()]]
 vim.cmd [[command! NeotestRun lua require('neotest').run.run()]]

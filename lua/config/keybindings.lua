@@ -41,44 +41,11 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
   :verbose nmap   list normal mode key mappings, and where they were last defined
   :vmap           list visual mode key mappings
   :imap           list insert mode key mappings
-  :PackerCompile  to create plugin/packer_compiled.lua from lua/config/plugins.lua
-  :PackerClean    remove plugins that are no longer in the config
-  :PackerStatus   list installed / loaded plugins
-  :PackerInstall
-  :PackerUpdate   upgrade to latest plugin versions
-  :PackerSync     compile+install/remove
 
 --]]
 
 -- ===== Telescope
--- (use C-n and C-p to move selection up or down in Telescope)
--- keymaps are named after the shortest set of chars describing the telescope command
--- To see all available pickers: :Telescope builtin
-
--- See `:help telescope.builtin`
-if prequire('telescope') then
-  vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-  vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-  vim.keymap.set('n', '<leader>/', function()
-    -- You can pass additional configuration to telescope to change theme, layout, etc.
-    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-      winblend = 10,
-      previewer = false,
-    })
-  end, { desc = '[/] Fuzzily search in current buffer]' })
-
-  vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-  vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-  vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-  vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-  vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-  vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
-  vim.keymap.set('n', '<space>ld', '<cmd> Telescope lsp_definitions<cr>') -- show where variable is defined
-  vim.keymap.set('n', '<space>lr', '<cmd> Telescope lsp_references<cr>') -- show callers of this method
-  vim.keymap.set('n', '<space><c-o><c-o>', "<cmd>Telescope resume<cr>") -- re-open the previous picker in same state
-  vim.keymap.set('n', '<space>o<c-o>', "<cmd>Telescope resume<cr>")
-end
-
+-- see lua/plugins/telescope.lua
 
 -- find lua/vim files in my nvim configuration dir
 vim.keymap.set('n', '<space>oq', function()
@@ -126,25 +93,8 @@ vim.cmd('tnoremap <C-A-p> <cmd>NnnPicker<CR>')
 vim.cmd('tnoremap <C-A-n> <cmd>NnnExplorer<CR>')
 vim.cmd('nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>')
 
--- ===== neotest
--- see neotest.lua setup/summarymappings for keymaps to use inside the neotest window
-vim.cmd('nnoremap <leader>t <cmd>lua require("neotest").run.run()<CR>') -- run nearest test
-vim.cmd('nnoremap <leader>tf <cmd>lua require("neotest").run.run(vim.fn.expand("%%"))<CR>') -- test file
-vim.cmd('nnoremap <leader>tl <cmd>lua require("neotest").run.run_last()<CR>')
-vim.cmd('nnoremap <leader>ts <cmd>lua require("neotest").summary.open()<CR>')
-
--- run entire test suite
-vim.keymap.set('n', '<leader>ta', function()
-  local neotest = prequire('neotest')
-  if not neotest then return end
-
-  for _, adapter_id in ipairs(neotest.run.adapters()) do
-    neotest.run.run({ suite = true, adapter = adapter_id })
-  end
-end)
-
--- ===== Packer
-vim.keymap.set('n', ',pu', '<cmd> PackerUpdate<cr>')
+-- ===== Package management
+vim.keymap.set('n', ',pu', '<cmd>Lazy update<cr>')
 
 -- open my keybindings file
 vim.cmd('nnoremap ,k <cmd>edit ~/.config/nvim/lua/config/keybindings.lua<CR>')
