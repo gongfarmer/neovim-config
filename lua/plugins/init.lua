@@ -198,10 +198,11 @@ return {
       --     'antoinemadec/FixCursorHold.nvim',
     },
     keys = {
-      { '<leader>t', '<cmd> Neotest.run.run()<CR>', desc = 'run nearest tests' },
-      { '<leader>tf', '<cmd> Neotest.run.run(vim.fn.expand("%%"))<CR>', desc = 'run test file' },
-      { '<leader>tl', '<cmd> Neotest.run.run_last()<CR>', desc = 'run last' },
-      { '<leader>ts', '<cmd> Neotest.summary.open()<CR>', desc = 'show test summary' },
+      { '<leader>t', '<cmd> lua require("neotest").run.run()<CR>', desc = 'run nearest tests' },
+      { '<leader>tf', '<cmd> lua require("neotest").run.run(vim.fn.expand("%%"))<CR>', desc = 'run test file' },
+      { '<leader>tl', '<cmd> lua require("neotest").run.run_last()<CR>', desc = 'run last' },
+      { '<leader>ts', '<cmd> lua require("neotest").summary.open()<CR>', desc = 'show test summary' },
+      { '<leader>ta', '<cmd> lua require("neotest").summary.open()<CR>', desc = 'show test summary' },
     }
   },
 

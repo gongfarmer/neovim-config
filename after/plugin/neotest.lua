@@ -111,11 +111,10 @@ neotest.setup({
 
 -- run entire test suite
 vim.keymap.set('n', '<leader>ta', function()
-  local neotest = prequire('neotest')
-  if not neotest then return end
+  local module = require('neotest')
 
-  for _, adapter_id in ipairs(neotest.run.adapters()) do
-    neotest.run.run({ suite = true, adapter = adapter_id })
+  for _, adapter_id in ipairs(module.run.adapters()) do
+    module.run.run({ suite = true, adapter = adapter_id })
   end
 end)
 
