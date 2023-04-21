@@ -1,15 +1,10 @@
 -- On startup:
 -- 1. init.lua is read
--- 2. files in after/plugin/ are automatically read
---    (files in after/ are not automatically read, but it is available to use for require)
--- The order in which dirs/files are read is determined by the runtimepath (:se rtp)
---
--- lazy.nvim does these steps: 
--- 1. All the plugins' init() functions are executed
+-- require and setup of setup lazy does the following:
 -- 2. All plugins with lazy=false are loaded. This includes sourcing /plugin and /ftdetect files. (/after will not be sourced yet)
 -- 3. All files from /plugin and /ftdetect directories in your rtp are sourced (excluding /after)
 -- 4. All /after/plugin files are sourced (this includes /after from plugins)
--- Files from runtime directories are always sourced in alphabetical order.
+--    Files from runtime directories are always sourced in alphabetical order.
 
 -- This is how to print a message that will be logged in :messages
 -- print("hello from init.lua")

@@ -89,44 +89,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- vim.api.nvim_create_augroup('dynamic_smartcase', { clear = true })
--- vim.api.nvim_create_autocmd({
---   event = 'CmdLineEnter',
---   group = 'dynamic_smartcase',
---   callback = function() vim.opt.ignorecase = true end
--- })
--- vim.api.nvim_create_autocmd({
---   event = 'CmdLineEnter',
---   group = 'dynamic_smartcase',
---   callback = function() vim.opt.smartcase = true end
--- })
-
-
-vim.api.nvim_create_augroup('highlight_yank', {})
-vim.api.nvim_create_autocmd('TextYankPost', {
-  group = 'highlight_yank',
-  callback = function()
-    vim.highlight.on_yank { higroup="Visual", timeout=250 }
-  end
-})
-
-vim.api.nvim_create_augroup('help_autogroup', {})
-vim.api.nvim_create_autocmd('BufEnter', {
-  group = 'help_autogroup',
-  callback = function()
-    local buf = tonumber(vim.fn.expand('<abuf>'))
-
-    vim.schedule(function()
-      if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_get_option(buf, 'filetype') == 'help' then
-        vim.api.nvim_set_current_buf(buf)
-        vim.cmd 'wincmd L'
-        vim.cmd 'vertical resize 85'
-      end
-    end)
-  end
-})
-
-
 local disabled_built_ins = {
     "gzip",
     "zip",
