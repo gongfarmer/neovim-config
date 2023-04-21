@@ -1,4 +1,5 @@
 -- LSP settings  (all from kickstart.nvim)
+
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
