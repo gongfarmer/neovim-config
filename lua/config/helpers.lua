@@ -1,21 +1,3 @@
-function print_warn(str)
-  vim.api.nvim_command('echohl WarningMsg')
-  vim.api.nvim_command(('echomsg "%s"'):format(str))
-  vim.api.nvim_command('echohl None')
-end
-
-function print_error(str)
-  vim.api.nvim_command('echohl Error')
-  vim.api.nvim_command(('echomsg "%s"'):format(str))
-  vim.api.nvim_command('echohl None')
-end
-
-function prequire(...)
-  local status, lib = pcall(require, ...)
-  if (status) then return lib end
-  return nil
-end
-
 -- debug printing of a lua objects
 function p(...)
   if #{ ... } > 1 then
