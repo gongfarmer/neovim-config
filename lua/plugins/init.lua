@@ -281,7 +281,6 @@ return {
   'mrjones2014/nvim-ts-rainbow',
 
   'dstein64/vim-startuptime',
-  'ThePrimeagen/harpoon',
   'onsails/lspkind-nvim',
   'kylechui/nvim-surround',
 
