@@ -17,7 +17,12 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'sindrets/diffview.nvim'
-    }
+    },
+    config = function()
+      -- enable diffview integration 
+      local neogit = require('neogit')
+      neogit.setup({ integrations = { diffview = true } })
+    end
   },
 
   --  LSP
