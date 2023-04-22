@@ -1,7 +1,6 @@
--- needs this: LspInstall json
+-- needs this: TsInstall json
 
--- abort if plugin not installed
-if not prequire('jsonpath') then return end
+vim.opt_local.formatprg = "jq ."
 
 -- show json path in the winbar
 if vim.fn.exists("+winbar") == 1 then
