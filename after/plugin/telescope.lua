@@ -29,11 +29,21 @@ vim.keymap.set('n', '<leader>sld', '<cmd> Telescope lsp_definitions<cr>', { desc
 vim.keymap.set('n', '<leader>slr', '<cmd> Telescope lsp_references<cr>', { desc = '[S]earch [L]sp [R]eferences' })
 vim.keymap.set('n', '<leader><c-o><c-o>', '<cmd> Telescope resume<cr>', { desc = 'Telescope resume last search' })
 vim.keymap.set('n', '<leader>o<c-o>', '<cmd> Telescope resume<cr>', { desc = 'Telescope resume last search' })
+
 vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
+    -- You can pass additional configuration to telescope to change theme, layout, etc.
+    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+      winblend = 10,
+      previewer = false,
+    })
+  end,
+  { desc = '[/] Fuzzily search in current buffer' }
+)
+
+vim.keymap.set('n', '<leader>oq', function()
+    cwd = vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h')
+    require('telescope.builtin').find_files({ search_dirs={cwd}})
+  end,
+  { desc = "Find files in nvim config dir"}
+)
 

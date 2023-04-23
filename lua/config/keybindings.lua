@@ -42,14 +42,6 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- ===== Telescope
 -- see lua/plugins/telescope.lua
 
--- find lua/vim files in my nvim configuration dir
-vim.keymap.set('n', '<space>oq', function()
-  require'finders'.find {
-    cwd = vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h'),
-    pattern = "(lua|vim)$"
-  }
-end)
-
 -- LSP diagnostic keymaps
 -- see ls.lua for more key mappings
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
