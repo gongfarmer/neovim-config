@@ -15,7 +15,7 @@ require 'config.settings'
 
 -- load plugins
 require 'config.lazy_bootstrap'
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", { change_detection = { notify = false, }})
 
 require 'config.lsp'
 
