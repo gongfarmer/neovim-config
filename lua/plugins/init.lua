@@ -80,6 +80,7 @@ return {
   { 'rmehri01/onenord.nvim', lazy=true },
   { 'savq/melange', lazy=true },
   { 'jacoborus/tender.vim', lazy=true },
+  { 'rebelot/kanagawa.nvim', lazy=true },
 
   -- icons
   {
@@ -102,7 +103,8 @@ return {
     dependencies = { 'kyazdani42/nvim-web-devicons', opt = true },
     opts = {
       options = {
-        theme = 'seoul256',
+      theme  = "OceanicNext",
+--        theme = 'seoul256',
 --      theme  = "powerline_dark",
 --      theme  = "horizon",
 --      component_separators = '|',
@@ -159,6 +161,12 @@ return {
     -- loading without attaching to any buffers. This fixes it.
     config = function()
       require("colorizer").setup()
+
+      -- Delete these commands, because they mess up autocompletion of :colorscheme which annoys me.
+      vim.cmd('delc ColorizerAttachToBuffer')
+      vim.cmd('delc ColorizerDetachFromBuffer')
+      vim.cmd('delc ColorizerReloadAllBuffers')
+      vim.cmd('delc ColorizerToggle')
     end,
   },
 
