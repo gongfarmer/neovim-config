@@ -1,4 +1,4 @@
--- from kickstarter
+-- based on kickstart.nvim
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -23,7 +23,7 @@ vim.keymap.set('n', '<leader>sf', '<cmd> Telescope find_files<cr>', { desc = '[S
 vim.keymap.set('n', '<leader>sh', '<cmd> Telescope help_tags<cr>', { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', '<cmd> Telescope grep_string<cr>', { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', '<cmd> Telescope live_grep<cr>', { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', '<cmd> Telescope diagnostics', { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>sd', '<cmd> Telescope diagnostics<cr>', { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sk', '<cmd> Telescope keymaps<cr>', { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<leader>sld', '<cmd> Telescope lsp_definitions<cr>', { desc = '[S]earch [L]sp [D]efinitions' })
 vim.keymap.set('n', '<leader>slr', '<cmd> Telescope lsp_references<cr>', { desc = '[S]earch [L]sp [R]eferences' })
