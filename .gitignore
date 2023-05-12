@@ -1,2 +1,2 @@
 lua/config/local.lua
-plugin/packer_compiled.lua
+lua/config/netapp_plugins.lua

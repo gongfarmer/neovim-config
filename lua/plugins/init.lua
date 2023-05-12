@@ -4,8 +4,6 @@
 -- return a hash of plugins to load.
 -- this will be merged with other configuration files in lua/plugins.
 return {
-  -- NOTE: First, some plugins that don't require any configuration
-
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-abolish',
@@ -44,7 +42,13 @@ return {
     },
   },
 
--- Autocompletion
+  {
+    'L3MON4D3/LuaSnip',
+    dependencies = { 'kmarius/jsregexp' },
+    submodules = false -- can't use submodules behind netapp firewall
+  },
+
+  -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -157,7 +161,7 @@ return {
   -- Colorize background color of color names/hex codes
   {
     'norcalli/nvim-colorizer.lua',
-    -- Calling setup() should be the default behaviour, but colorizer was 
+    -- Calling setup() should be the default behaviour, but colorizer was
     -- loading without attaching to any buffers. This fixes it.
     config = function()
       require("colorizer").setup()
@@ -277,8 +281,10 @@ return {
   },
 
   -- aerial - code outline sidebar
+  { 'stevearc/nvim_doc_tools' },
   {
     'stevearc/aerial.nvim',
+    submodules = false, -- can't use submodules behind netapp firewall
     config =
       function() require('aerial').setup({
         on_attach = function(bufnr)

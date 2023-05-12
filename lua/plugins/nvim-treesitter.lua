@@ -6,6 +6,16 @@ return {
   },
   build = ":TSUpdate",
   config = function()
+    if vim.g.netapp then
+      -- use netapp mirrors to download language support
+      for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
+        local url = config.install_info.url
+        url = url:gsub("https://github.com/", 'https://repomirror-rtp.eng.netapp.com/github-neovim/')
+        url = url .. ".git"
+        config.install_info.url = url
+      end
+    end
+
     require("nvim-treesitter.configs").setup({
       -- Add languages to be installed here that you want installed for treesitter
       ensure_installed = { 'cpp', 'go', 'json', 'lua', 'ruby', 'vimdoc' },

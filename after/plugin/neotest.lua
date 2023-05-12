@@ -35,7 +35,8 @@ neotest.setup({
   discovery = {
     enabled = true
   },
-  log_level = 1,
+  -- Enable for detailed debug messages in ~/.local/state/nvim/neotest.log
+  -- log_level = 1,
   floating = {
     border = "rounded",
     max_height = 0.8,

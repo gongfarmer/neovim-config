@@ -1,4 +1,4 @@
--- LSP settings  (all from kickstart.nvim)
+-- LSP settings  (based on kickstart.nvim)
 
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -44,6 +44,17 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+-- Setup neovim lua configuration
+require('neodev').setup()
+
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+-- Setup mason so it can manage external tooling
+require('mason').setup()
+local mason_lspconfig = require 'mason-lspconfig'
+
 -- Enable the following language servers
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
@@ -59,20 +70,6 @@ local servers = {
   },
   solargraph = {},
 }
-
--- Setup neovim lua configuration
-require('neodev').setup()
---
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Setup mason so it can manage external tooling
-require('mason').setup()
-
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
-
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
@@ -132,3 +129,6 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- Write log messages to ~/.local/state/nvim/lsp.log
+vim.lsp.set_log_level("debug")

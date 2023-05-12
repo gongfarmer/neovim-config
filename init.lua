@@ -6,25 +6,37 @@
 -- 4. All /after/plugin files are sourced (this includes /after from plugins)
 --    Files from runtime directories are always sourced in alphabetical order.
 
--- This is how to print a message that will be logged in :messages
--- print("hello from init.lua")
+-- Debugging tips
+--   * Neovim mostly logs to ~/.local/state/nvim/
+--   * This is how to print a message that will be logged in :messages :
+--     print("hello from init.lua")
 
+-- Pre-plugin configuration
 require 'config.helpers'
 require 'config.keybindings' -- set keymap leader before loading plugins
 require 'config.settings'
-
--- load plugins
-require 'config.lazy_bootstrap'
-require("lazy").setup("plugins", { change_detection = { notify = false, }})
-
-require 'config.lsp'
-
--- Load local customizations last from local.lua, if it exists.
--- This file is not checked into git.
--- It contains environment-specific customizations, such as site-specific colorchemes
-local path = script_path() .. 'lua/config/local.lua'
+local path = script_path() .. 'lua/config/local_before.lua'
 if file_exists(path) then
-  require 'config.local'
+  require 'config.local_before'
+end
+
+-- Load plugins
+require 'config.lazy_bootstrap'
+if vim.g.netapp then
+  require('config.netapp')
+else
+  local opts = {
+    change_detection = { notify = false }, -- don't notify me when the neovim config files are changed
+  }
+  require('lazy').setup('plugins', opts)
+end
+
+-- Post-plugin configuration
+path = script_path() .. 'lua/config/local_after.lua'
+if file_exists(path) then
+  require 'config.local_after'
 else
   vim.cmd('colorscheme onedark')
 end
+
+require 'config.lsp'
